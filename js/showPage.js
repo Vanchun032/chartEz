@@ -1,28 +1,18 @@
 layui.use(['carousel', 'element'], function() {
 	var carousel = layui.carousel
 	var element = layui.element
-	
-	
-	var user = JSON.parse(storage['user'])
-	user.userid = "'" + user.userid + "'"
-	user.cxid = getQueryString('cxid')? getQueryString('cxid'): 'joanbIjdacvsx',
-	user.cxid = "'" + user.cxid + "'"
-	user.date = function() {
-		var now = getTime(new Date())
-		var result = getQueryString('date')? getQueryString('date'): now.year + '-' + now.month + '-' + now.day
-		return "'" + result + "'"
-	}
-	
+
 	var uuid = urlHash()
 	//全局存储chart信息
-	window.charts = {}
-	window.socketInfo = {}
-	
-	
+	var charts = {}
+	var socketInfo = {}
+	var dbs = {}
+
+
 	//初始化socketIo
 	//配置服务器域名
 	var socket = io.connect(serverIP + ':9092')
-	
+
 	//启动时发送一条信息给服务器
 	socket.on('connect', function() {
 		socket.emit('echo', 'hello~Server')
@@ -40,23 +30,23 @@ layui.use(['carousel', 'element'], function() {
 			})(x)
 		}
 	})
-	
+
 	//调试用的好东西
 	socket.on('echo', function(data) {
 		console.log(data)
 	})
-	
-	
-	
+
+
+
 	function setStyle(dom, style) {
 		var style = style || {}
 		for (var x = 0; x < Object.keys(style).length; x++) {
 			dom.style[Object.keys(style)[x]] = style[Object.keys(style)[x]]
 		}
 	}
-	
+
 	//html插入工具方法
-	window.loadHtml = function(dbId, htmlList) {
+	function loadHtml(dbId, htmlList) {
 		for (var x = 0; x < htmlList.length; x++) {
 			(function(x) {
 				var config = JSON.parse(htmlList[x].config)
@@ -80,10 +70,14 @@ layui.use(['carousel', 'element'], function() {
 					//新建监听
 					socket.on(eventId, function(res) {
 						eval(call_back)
-						callAjax('data/backLife', {eventId: eventId}, function(){})
+						callAjax('data/backLife', {
+							eventId: eventId
+						}, function() {})
 					})
 					//通知服务器建立事件
-					callAjax('data/byid', {id: htmlList[x].ds_id}, function(res) {
+					callAjax('data/byid', {
+						id: htmlList[x].ds_id
+					}, function(res) {
 						var sqls = res.data.sql_stmt.split(';')
 						var result = ""
 						sqls.forEach(function(sql) {
@@ -91,15 +85,18 @@ layui.use(['carousel', 'element'], function() {
 							result += eval(sql) + ';'
 						})
 						socketInfo[eventId] = result
-						callAjax('data/addEvent', {eventId: eventId,sqlArr: result}, function() {})
+						callAjax('data/addEvent', {
+							eventId: eventId,
+							sqlArr: result
+						}, function() {})
 					})
 				}
 			})(x)
 		}
 	}
-	
+
 	//chart插入工具方法
-	window.loadChart = function(dbId, chartList) {
+	function loadChart(dbId, chartList) {
 		for (var x = 0; x < chartList.length; x++) {
 			//闭包问题
 			(function(x) {
@@ -118,7 +115,7 @@ layui.use(['carousel', 'element'], function() {
 				//before
 				eval(chartList[x].before)
 				//如果存在chart主题，则启用
-				var chart = JSON.stringify(dbs[dbId].config.chartTheme) == '{}'? echarts.init(div): echarts.init(div, dbId)
+				var chart = JSON.stringify(dbs[dbId].config.chartTheme) == '{}' ? echarts.init(div) : echarts.init(div, dbId)
 				charts[chartList[x].id] = chart
 				chart.setOption(JSON.parse(chartList[x].option))
 				eval(chartList[x].after)
@@ -129,10 +126,14 @@ layui.use(['carousel', 'element'], function() {
 					//新建监听
 					socket.on(eventId, function(res) {
 						eval(call_back)
-						callAjax('data/backLife', {eventId: eventId}, function(){})
+						callAjax('data/backLife', {
+							eventId: eventId
+						}, function() {})
 					})
 					//通知服务器建立事件
-					callAjax('data/byid', {id: chartList[x].ds_id}, function(res) {
+					callAjax('data/byid', {
+						id: chartList[x].ds_id
+					}, function(res) {
 						var sqls = res.data.sql_stmt.split(';')
 						var result = ""
 						sqls.forEach(function(sql) {
@@ -140,15 +141,18 @@ layui.use(['carousel', 'element'], function() {
 							result += eval(sql) + ';'
 						})
 						socketInfo[eventId] = result
-						callAjax('data/addEvent', {eventId: eventId,sqlArr: result}, function() {})
+						callAjax('data/addEvent', {
+							eventId: eventId,
+							sqlArr: result
+						}, function() {})
 					})
 				}
 			})(x)
 		}
 	}
-	
+
 	//Table载入的工具方法
-	window.loadTable = function(dbId, tableList) {
+	function loadTable(dbId, tableList) {
 		for (var x = 0; x < tableList.length; x++) {
 			//闭包问题
 			(function(x) {
@@ -187,10 +191,14 @@ layui.use(['carousel', 'element'], function() {
 					//新建监听
 					socket.on(eventId, function(res) {
 						eval(call_back)
-						callAjax('data/backLife', {eventId: eventId}, function(){})
+						callAjax('data/backLife', {
+							eventId: eventId
+						}, function() {})
 					})
 					//通知服务器建立事件
-					callAjax('data/byid', {id: tableList[x].ds_id}, function(res) {
+					callAjax('data/byid', {
+						id: tableList[x].ds_id
+					}, function(res) {
 						var sqls = res.data.sql_stmt.split(';')
 						var result = ""
 						sqls.forEach(function(sql) {
@@ -198,13 +206,16 @@ layui.use(['carousel', 'element'], function() {
 							result += eval(sql) + ';'
 						})
 						socketInfo[eventId] = result
-						callAjax('data/addEvent', {eventId: eventId,sqlArr: result}, function() {})
+						callAjax('data/addEvent', {
+							eventId: eventId,
+							sqlArr: result
+						}, function() {})
 					})
 				}
 			})(x)
 		}
 	}
-	
+
 	//Table元素样式配置的工具方法
 	function setTableCss(table, thead, tbody, style) {
 		setStyle(table, style.table)
@@ -223,12 +234,12 @@ layui.use(['carousel', 'element'], function() {
 			setStyle(td, style.td)
 		})
 	}
-	
+
 	function childrenByName(parent, childName) {
 		var result = []
 		var children = parent.children
 		for (var x = 0; x < children.length; x++) {
-			if (children[x].localName == childName){
+			if (children[x].localName == childName) {
 				result.push(children[x])
 			}
 			//递归
@@ -236,9 +247,9 @@ layui.use(['carousel', 'element'], function() {
 		}
 		return result
 	}
-	
+
 	//Image载入的工具方法
-	window.loadImage = function(dbId, imageList) {
+	function loadImage(dbId, imageList) {
 		for (var x = 0; x < imageList.length; x++) {
 			(function(x) {
 				var config = JSON.parse(imageList[x].config)
@@ -259,5 +270,82 @@ layui.use(['carousel', 'element'], function() {
 			})(x)
 		}
 	}
+	
+	//根据看板组ID获取全部看板,为每一个看板设置一个div作为容器
+	callAjax('dbs/byid', {
+		id: getQueryString('id')
+	}, function(res) {
+		var page = $('#jinggongkb-main-wrapper')[0]
+		for (var x = 0; x < res.dbList.length; x++) {
+			if (res.dbList[x].checked) {
+				var config = JSON.parse(res.dbList[x].config)
+				dbs[res.dbList[x].id] = {
+					title: res.dbList[x].title,
+					config: config
+				}
+				//如果看板存在Echart主题,则全局注册主题
+				if (config.chartTheme) {
+					echarts.registerTheme(res.dbList[x].id, config.chartTheme)
+				}
+				//设置对象并插入父元素(双层DIV解决尺寸)
+				var outDiv = document.createElement('div')
+				var innerDiv = document.createElement('div')
+				innerDiv.setAttribute('id', 'db_' + res.dbList[x].id)
+				innerDiv.setAttribute('class', 'my_db')
+				innerDiv.style.width = config.width + 'px'
+				innerDiv.style.height = config.height + 'px'
+				outDiv.appendChild(innerDiv)
+				page.appendChild(outDiv)
+				//设置看板的背景色
+				if (config.backgroundColor) {
+					innerDiv.style.backgroundColor = config.backgroundColor
+				} else if (config.backgroundImg) {
+					innerDiv.style.backgroundImage = 'url(' + config.backgroundImg + ')'
+					innerDiv.style.backgroundRepeat = 'no-repeat'
+					innerDiv.style.backgroundSize = '100% 100%'
+				}
+			}
+		}
+		//循环每一个看板,向其中添加数据
+		for (var x = 0; x < Object.keys(dbs).length; x++) {
+			//因为要讲看板id带进入,所以搞一个闭包
+			(function(dbId) {
+				//所有元素都是平级,所以按顺序填充即可
+				//首先处理html
+				callAjax('html/list', {
+					db_id: dbId
+				}, function(res) {
+					loadHtml(dbId, res.data)
+				})
+				//处理chart
+				callAjax('chart/list', {
+					db_id: dbId
+				}, function(res) {
+					loadChart(dbId, res.data)
+				})
+				//处理table
+				callAjax('table/list', {
+					db_id: dbId
+				}, function(res) {
+					loadTable(dbId, res.data)
+				})
+				//处理image
+				callAjax('img/list', {
+					db_id: dbId
+				}, function(res) {
+					loadImage(dbId, res.data)
+				})
+			})(Object.keys(dbs)[x])
+		}
+	
+		//建造轮播实例,先放那放着
+		carousel.render({
+			elem: '#jinggongkb-main-container',
+			width: '100%',
+			height: '100%',
+			full: true,
+			arrow: 'none',
+			interval: 1000 * 20
+		})
+	})
 })
-
