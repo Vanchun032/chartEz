@@ -3,227 +3,444 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
+		<link rel="stylesheet" type="text/css" href="layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="codemirror-5.43.0/lib/codemirror.css" />
+		<link rel="stylesheet" type="text/css" href="codemirror-5.43.0/theme/bespin.css" />
 	</head>
 	<body>
 		<div id="biu"></div>
+		<div id="rename_page" hidden="hidden" style="padding:20px 20px">
+			<form class="layui-form" onsubmit="return false">
+				<div class="layui-form-item">
+					<label class="layui-form-label">看板名称</label>
+					<div class="layui-input-block">
+						<input type="text" id="db_name" lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" id="rename_btn">确定</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div id="resize_page" hidden="hidden" style="padding:20px 20px">
+			<form class="layui-form" onsubmit="return false">
+				<div class="layui-form-item">
+					<label class="layui-form-label">宽度</label>
+					<div class="layui-input-block">
+						<input type="text" id="db_width" lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">高度</label>
+					<div class="layui-input-block">
+						<input type="text" id="db_height" lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" id="resize_btn">确定</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div id="retheme_page" hidden="hidden" style="padding:20px 20px">
+			<form class="layui-form" onsubmit="return false">
+				<div class="layui-form-item">
+					<label class="layui-form-label">主题包</label>
+					<div class="layui-input-block">
+						<textarea class="layui-textarea" id="db_theme"></textarea>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" id="retheme_btn">确定</button>
+					</div>
+				</div>
+			</form>
+		</div>
 	</body>
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="layui/layui.js"></script>
+	<script src="codemirror-5.43.0/lib/codemirror.js"></script>
+	<script src="codemirror-5.43.0/mode/javascript/javascript.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/biu.js"></script>
 	<script>
-		var dbId = getQueryString("id")
-		//加载并保存后台数据
-		var htmls = []
-		var charts = []
-		var tables = []
-		var images = []
-		callAjax('html/list', {
-			db_id: dbId
-		}, function(res) {
-			htmls = res.data
-			callAjax('chart/list', {
-				db_id: dbId
+		layui.use(['layer'], function(layer) {
+			var layer = layer
+			var dbId = getQueryString("id")
+			//加载并保存后台数据
+			var db = {}
+			var htmls = []
+			var charts = []
+			var tables = []
+			var images = []
+			var themeEditor = CodeMirror.fromTextArea(document.getElementById("db_theme"), {
+				mode: "text/javascript",
+				lineNumbers: true,
+				theme: "bespin"
+			})
+			callAjax('board/byid', {
+				id: dbId
 			}, function(res) {
-				charts = res.data
-				callAjax('table/list', {
+				db = res
+				db.config = JSON.parse(db.config)
+				callAjax('html/list', {
 					db_id: dbId
 				}, function(res) {
-					tables = res.data
-					callAjax('img/list', {
+					htmls = res.data
+					callAjax('chart/list', {
 						db_id: dbId
 					}, function(res) {
-						images = res.data
-						initPage()
+						charts = res.data
+						callAjax('table/list', {
+							db_id: dbId
+						}, function(res) {
+							tables = res.data
+							callAjax('img/list', {
+								db_id: dbId
+							}, function(res) {
+								images = res.data
+								initPage()
+							})
+						})
 					})
 				})
 			})
-		})
-		//配置Option
-		var myOption = {
-			itemMenuConf: {
-				html: {
-					title: 'HTML',
-					url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/chartEz/html.svg',
-					color: '#DDDDFF',
-					menus: [{
-						name: '删除',
-						callBack: function(self) {
-							self.destory()
-						}
-					}],
-					init: function(self, itemMenu, svg) {
-						var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-						var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-						rect.setAttribute('fill', itemMenu[self.item_name].color)
-						var text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-						text.innerHTML = self.data.name
-						g.appendChild(rect)
-						g.appendChild(text)
-						svg.appendChild(g)
-						return g
+
+
+			function initPage() {
+				//配置Option
+				var myOption = {
+					style: {
+						svgSize: {
+							width: db.config.width,
+							height: db.config.height
+						},
+						body: {
+							backgroundColor: '#fff'
+						},
+						svg: {
+							backgroundColor: '#333'
+						},
+						canvasColor: '#c5c5c5'
 					},
-					resize: function(self) {
-						self._dom.children[0].setAttribute('x', self.x)
-						self._dom.children[0].setAttribute('y', self.y)
-						self._dom.children[0].setAttribute('width', self.width)
-						self._dom.children[0].setAttribute('height', self.height)
-						//TEXT
-						self._dom.children[1].setAttribute('x', self.x + self.width/2)
-						self._dom.children[1].setAttribute('y', self.y + self.height/2)
-					}
-				},
-				chart: {
-					title: 'CHART',
-					url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/chartEz/chart.svg',
-					color: '#C4E1FF',
-					menus: [{
-						name: '删除',
-						callBack: function(self) {
-							self.destory()
+					itemMenuConf: {
+						html: {
+							title: 'HTML',
+							url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/chartEz/html.svg',
+							color: '#DDDDFF',
+							menus: [{
+								name: '删除',
+								callBack: function(self) {
+									self.destory()
+								}
+							}],
+							data: {
+								name: 'html元素'
+							},
+							init: function(self, itemMenu, svg) {
+								var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+								var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+								rect.setAttribute('fill', itemMenu[self.item_name].color)
+								var text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+								g.appendChild(rect)
+								g.appendChild(text)
+								svg.appendChild(g)
+								return g
+							},
+							resize: function(self) {
+								self._dom.children[0].setAttribute('x', self.x)
+								self._dom.children[0].setAttribute('y', self.y)
+								self._dom.children[0].setAttribute('width', self.width)
+								self._dom.children[0].setAttribute('height', self.height)
+								//TEXT
+								self._dom.children[1].setAttribute('x', self.x + self.width / 2)
+								self._dom.children[1].setAttribute('y', self.y + self.height / 2)
+								self._dom.children[1].innerHTML = self.data.name
+							}
+						},
+						chart: {
+							title: 'CHART',
+							url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/chartEz/chart.svg',
+							color: '#C4E1FF',
+							menus: [{
+								name: '删除',
+								callBack: function(self) {
+									self.destory()
+								}
+							}],
+							data: {
+								name: 'chart元素'
+							},
+							init: function(self, itemMenu, svg) {
+								var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+								var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+								rect.setAttribute('fill', itemMenu[self.item_name].color)
+								var text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+								g.appendChild(rect)
+								g.appendChild(text)
+								svg.appendChild(g)
+								return g
+							},
+							resize: function(self) {
+								self._dom.children[0].setAttribute('x', self.x)
+								self._dom.children[0].setAttribute('y', self.y)
+								self._dom.children[0].setAttribute('width', self.width)
+								self._dom.children[0].setAttribute('height', self.height)
+								//TEXT
+								self._dom.children[1].setAttribute('x', self.x + self.width / 2)
+								self._dom.children[1].setAttribute('y', self.y + self.height / 2)
+								self._dom.children[1].innerHTML = self.data.name
+							}
+						},
+						table: {
+							title: 'TABLE',
+							url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/chartEz/table.svg',
+							color: '#D9FFFF',
+							menus: [{
+								name: '删除',
+								callBack: function(self) {
+									self.destory()
+								}
+							}],
+							data: {
+								name: 'table元素'
+							},
+							init: function(self, itemMenu, svg) {
+								var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+								var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+								rect.setAttribute('fill', itemMenu[self.item_name].color)
+								var text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+								g.appendChild(rect)
+								g.appendChild(text)
+								svg.appendChild(g)
+								return g
+							},
+							resize: function(self) {
+								self._dom.children[0].setAttribute('x', self.x)
+								self._dom.children[0].setAttribute('y', self.y)
+								self._dom.children[0].setAttribute('width', self.width)
+								self._dom.children[0].setAttribute('height', self.height)
+								//TEXT
+								self._dom.children[1].setAttribute('x', self.x + self.width / 2)
+								self._dom.children[1].setAttribute('y', self.y + self.height / 2)
+								self._dom.children[1].innerHTML = self.data.name
+							}
+						},
+						img: {
+							title: 'IMG',
+							url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/chartEz/image.svg',
+							color: '#D7FFEE',
+							menus: [{
+								name: '删除',
+								callBack: function(self) {
+									self.destory()
+								}
+							}],
+							data: {
+								name: 'image元素'
+							},
+							init: function(self, itemMenu, svg) {
+								var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+								var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+								rect.setAttribute('fill', itemMenu[self.item_name].color)
+								var text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+								g.appendChild(rect)
+								g.appendChild(text)
+								svg.appendChild(g)
+								return g
+							},
+							resize: function(self) {
+								self._dom.children[0].setAttribute('x', self.x)
+								self._dom.children[0].setAttribute('y', self.y)
+								self._dom.children[0].setAttribute('width', self.width)
+								self._dom.children[0].setAttribute('height', self.height)
+								//TEXT
+								self._dom.children[1].setAttribute('x', self.x + self.width / 2)
+								self._dom.children[1].setAttribute('y', self.y + self.height / 2)
+								self._dom.children[1].innerHTML = self.data.name
+							}
 						}
-					}],
-					init: function(self, itemMenu, svg) {
-						var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-						var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-						rect.setAttribute('fill', itemMenu[self.item_name].color)
-						var text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-						text.innerHTML = self.data.name
-						g.appendChild(rect)
-						g.appendChild(text)
-						svg.appendChild(g)
-						return g
 					},
-					resize: function(self) {
-						self._dom.children[0].setAttribute('x', self.x)
-						self._dom.children[0].setAttribute('y', self.y)
-						self._dom.children[0].setAttribute('width', self.width)
-						self._dom.children[0].setAttribute('height', self.height)
-						//TEXT
-						self._dom.children[1].setAttribute('x', self.x + self.width/2)
-						self._dom.children[1].setAttribute('y', self.y + self.height/2)
-					}
-				},
-				table: {
-					title: 'TABLE',
-					url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/chartEz/table.svg',
-					color: '#D9FFFF',
-					menus: [{
-						name: '删除',
-						callBack: function(self) {
-							self.destory()
+					featureMenuConf: [{
+							name: '看板名称',
+							feature: function() {
+								//参数回填
+								$('#db_name').val(db.title)
+								//配置回调
+								$('#rename_btn').click(function() {
+									db.title = $('#db_name').val()
+									callAjax('board/update', {
+										id: db.id,
+										title: db.title
+									}, function(res) {
+										layer.closeAll()
+										$('#rename_btn').off('click')
+										if (res.code == 1) {
+											layer.msg('保存成功')
+										} else {
+											layer.msg('系统异常')
+										}
+									})
+								})
+								//打开页面
+								layer.open({
+									type: 1,
+									title: false,
+									content: $('#rename_page'),
+									area: '500px',
+									btn: false,
+									shadeClose: true
+								})
+							}
+						},
+						{
+							name: '看板尺寸',
+							feature: function() {
+								//参数回填
+								$('#db_width').val(db.config.width)
+								$('#db_height').val(db.config.height)
+								//配置回调
+								$('#resize_btn').click(function() {
+									db.config.width = $('#db_width').val()
+									db.config.height = $('#db_height').val()
+									callAjax('board/update', {
+										id: db.id,
+										config: JSON.stringify(db.config)
+									}, function(res) {
+										layer.closeAll()
+										$('#resize_btn').off('click')
+										if (res.code == 1) {
+											layer.msg('保存成功')
+											 location.reload()
+										} else {
+											layer.msg('系统异常')
+										}
+									})
+								})
+								//打开页面
+								layer.open({
+									type: 1,
+									title: false,
+									content: $('#resize_page'),
+									area: '500px',
+									btn: false,
+									shadeClose: true
+								})
+							}
+						},
+						{
+							name: 'chart主题',
+							feature: function() {
+								//参数回填
+								themeEditor.setValue(JSON.stringify(db.config.chartTheme, null, 2))
+								//配置回调
+								$('#retheme_btn').click(function() {
+									try {
+										eval('var theme = ' + themeEditor.getValue())
+										db.config.chartTheme = theme
+										callAjax('board/update', {
+											id: db.id,
+											config: JSON.stringify(db.config)
+										}, function(res) {
+											layer.closeAll()
+											$('#retheme_btn').off('click')
+											if (res.code == 1) {
+												layer.msg('保存成功')
+											} else {
+												layer.msg('系统异常')
+											}
+										})
+									} catch(e) {
+										layer.msg('字符串解析异常')
+									}
+								})
+								//打开页面
+								layer.open({
+									type: 1,
+									title: false,
+									content: $('#retheme_page'),
+									area: '500px',
+									btn: false,
+									shadeClose: true
+								})
+							}
+						},
+						{
+							name: '保存布局',
+							feature: function() {
+								//调用用户后台接口,可对当前页面的布局内容进行保存
+								var param = []
+								biu.items.forEach(item => {
+									var config = JSON.parse(item.data.config)
+									config.top = item.y
+									config.left = item.x
+									config.width = item.width
+									config.height = item.height
+									param.push({
+										type: item.item_name,
+										id: item.data.id,
+										config: config
+									})
+								})
+								callAjax('update/all', {
+									str: JSON.stringify(param)
+								}, function(res) {
+									if (res.code == 1) {
+										layer.msg('保存成功')
+									} else {
+										layer.msg('保存失败')
+									}
+								})
+							}
 						}
-					}],
-					init: function(self, itemMenu, svg) {
-						var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-						var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-						rect.setAttribute('fill', itemMenu[self.item_name].color)
-						var text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-						text.innerHTML = self.data.name
-						g.appendChild(rect)
-						g.appendChild(text)
-						svg.appendChild(g)
-						return g
-					},
-					resize: function(self) {
-						self._dom.children[0].setAttribute('x', self.x)
-						self._dom.children[0].setAttribute('y', self.y)
-						self._dom.children[0].setAttribute('width', self.width)
-						self._dom.children[0].setAttribute('height', self.height)
-						//TEXT
-						self._dom.children[1].setAttribute('x', self.x + self.width/2)
-						self._dom.children[1].setAttribute('y', self.y + self.height/2)
-					}
-				},
-				img: {
-					title: 'IMG',
-					url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/chartEz/image.svg',
-					color: '#D7FFEE',
-					menus: [{
-						name: '删除',
-						callBack: function(self) {
-							self.destory()
-						}
-					}],
-					init: function(self, itemMenu, svg) {
-						var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-						var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-						rect.setAttribute('fill', itemMenu[self.item_name].color)
-						var text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-						text.innerHTML = self.data.name
-						g.appendChild(rect)
-						g.appendChild(text)
-						svg.appendChild(g)
-						return g
-					},
-					resize: function(self) {
-						self._dom.children[0].setAttribute('x', self.x)
-						self._dom.children[0].setAttribute('y', self.y)
-						self._dom.children[0].setAttribute('width', self.width)
-						self._dom.children[0].setAttribute('height', self.height)
-						//TEXT
-						self._dom.children[1].setAttribute('x', self.x + self.width/2)
-						self._dom.children[1].setAttribute('y', self.y + self.height/2)
+					],
+					initSVG: function() {
+						htmls.forEach(html => {
+							var config = JSON.parse(html.config)
+							var temp = biu.createItem('html', 0, 0, html)
+							temp.x = config.left
+							temp.y = config.top
+							temp.width = config.width
+							temp.height = config.height
+							temp._resize()
+						})
+						charts.forEach(chart => {
+							var config = JSON.parse(chart.config)
+							var temp = biu.createItem('chart', 0, 0, chart)
+							temp.x = config.left
+							temp.y = config.top
+							temp.width = config.width
+							temp.height = config.height
+							temp._resize()
+						})
+						tables.forEach(table => {
+							var config = JSON.parse(table.config)
+							var temp = biu.createItem('table', 0, 0, table)
+							temp.x = config.left
+							temp.y = config.top
+							temp.width = config.width
+							temp.height = config.height
+							temp._resize()
+						})
+						images.forEach(image => {
+							var config = JSON.parse(image.config)
+							var temp = biu.createItem('img', 0, 0, image)
+							temp.x = config.left
+							temp.y = config.top
+							temp.width = config.width
+							temp.height = config.height
+							temp._resize()
+						})
 					}
 				}
-			},
-			featureMenuConf: [{
-				name: '保存',
-				feature: function() {
-					//调用用户后台接口,可对当前页面的布局内容进行保存
-					biu.items.forEach(item => {
-						var config = JSON.parse(item.data.config)
-						config.top = item.y
-						config.left = item.x
-						config.width = item.width
-						config.height = item.height
-						//调用服务接口进行保存
-						callAjax(item.item_name + '/update', {id: item.data.id, config: JSON.stringify(config)}, function(res) {})
-					})
-				}
-			}],
-			initSVG: function() {
-				htmls.forEach(html => {
-					var config = JSON.parse(html.config)
-					var temp = biu.createItem('html', 0, 0, html)
-					temp.x = config.left
-					temp.y = config.top
-					temp.width = config.width
-					temp.height = config.height
-					temp._resize()
-				})
-				charts.forEach(chart => {
-					var config = JSON.parse(chart.config)
-					var temp = biu.createItem('chart', 0, 0, chart)
-					temp.x = config.left
-					temp.y = config.top
-					temp.width = config.width
-					temp.height = config.height
-					temp._resize()
-				})
-				tables.forEach(table => {
-					var config = JSON.parse(table.config)
-					var temp = biu.createItem('table', 0, 0, table)
-					temp.x = config.left
-					temp.y = config.top
-					temp.width = config.width
-					temp.height = config.height
-					temp._resize()
-				})
-				images.forEach(image => {
-					var config = JSON.parse(image.config)
-					var temp = biu.createItem('img', 0, 0, image)
-					temp.x = config.left
-					temp.y = config.top
-					temp.width = config.width
-					temp.height = config.height
-					temp._resize()
-				})
+
+				var biuContainer = biu.init(document.getElementById('biu'))
+				biuContainer.setOption(myOption)
 			}
-		}
-		function initPage() {
-			var biuContainer = biu.init(document.getElementById('biu'))
-			biuContainer.setOption(myOption)
-		}
+		})
 	</script>
 </html>

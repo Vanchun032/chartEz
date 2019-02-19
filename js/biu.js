@@ -5,121 +5,133 @@
 }(this, (function(exports) {
 	'use strict'
 
+
 	//默认样式
-	const PAGE_STYLE = {
-		margin: 0,
-		padding: 0
-	}
-	const BIU_STYLE = {
-		width: '100vw',
-		height: '100vh',
-		display: 'flex'
-	}
-	const MENU_STYLE = {
-		width: '10%',
-		height: '100%',
-		backgroundColor: '#f7f7f7',
-		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'flex-start',
-		alignItems: 'flex-start',
-		padding: 0
-	}
-	const ITEM_BTN_STYLE = {
-		width: '50%',
-		height: '5%',
-		backgroundColor: '#f7f7f7',
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		cursor: 'pointer'
-	}
-	const FEATURE_BTN_STYLE = {
-		width: '50%',
-		height: '5%',
-		backgroundColor: '#d6d6d6',
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		cursor: 'pointer'
-	}
-	const ITEM_MENU_STYLE = {
-		width: '100%',
-		height: '95%',
-		backgroundColor: '#f7f7f7',
-		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'space-around',
-		alignItems: 'flex-start',
-		boxSizing: 'border-box',
-		padding: '20px 20px'
-	}
-	const FEATURE_MENU_STYLE = {
-		width: '100%',
-		height: '95%',
-		backgroundColor: '#d6d6d6',
-		display: 'flex',
-		flexDirection: 'column',
-		justifyContent: 'flex-start',
-		alignItems: 'flex-start',
-		boxSizing: 'border-box',
-		padding: '0'
-	}
-	const BODY_STYLE = {
-		width: '90%',
-		height: '100%',
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#333'
-	}
-	const SVG_STYLE = {
-		width: '100%',
-		backgroundColor: '#fff'
-	}
-	const MENU_ITEM_STYLE = {
-		width: '90px',
-		height: '100px',
-		display: 'flex',
-		flexDirection: 'column'
-	}
-	const MENU_ITEM_ICON_STYLE = {
-		height: '60px'
-	}
-	const MENU_ITEM_TITLE_STYLE = {
-		textAlign: 'center',
-		userSelect: 'none'
-	}
-	const FEATURE_MENU_ITEM_STYLE = {
-		width: '100%',
-		height: '40px',
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		cursor: 'pointer'
-	}
-	const CONTEXT_MENU_STYLE = {
-		backgroundColor: '#f7f7f7',
-		listStyle: 'none',
-		textAlign: 'center',
-		padding: 0,
-		margin: 0
-	}
-	const CONTEXT_MENU_ITEM_STYLE = {
-		padding: '2px 20px',
-		cursor: 'default'
-	}
-	const SVG_SIZE = {
-		width: 1920,
-		height: 1080
-	}
-	const SVG_ITEM_SIZE = {
-		width: 100,
-		height: 100
-	}
-	const AUX_ITEM_SIZE = {
-		width: 10,
-		height: 10
+	const STYLE = {
+		PAGE_STYLE: {
+			margin: 0,
+			padding: 0
+		},
+		BIU_STYLE: {
+			width: '100vw',
+			height: '100vh',
+			display: 'flex'
+		},
+		MENU_STYLE: {
+			width: '10%',
+			height: '100%',
+			backgroundColor: '#f7f7f7',
+			display: 'flex',
+			flexWrap: 'wrap',
+			justifyContent: 'flex-start',
+			alignItems: 'flex-start',
+			padding: 0
+		},
+		ITEM_BTN_STYLE: {
+			width: '50%',
+			height: '5%',
+			backgroundColor: '#f7f7f7',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+			cursor: 'pointer'
+		},
+		FEATURE_BTN_STYLE: {
+			width: '50%',
+			height: '5%',
+			backgroundColor: '#d6d6d6',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+			cursor: 'pointer'
+		},
+		ITEM_MENU_STYLE: {
+			width: '100%',
+			height: '95%',
+			backgroundColor: '#f7f7f7',
+			display: 'flex',
+			flexWrap: 'wrap',
+			justifyContent: 'space-around',
+			alignItems: 'flex-start',
+			boxSizing: 'border-box',
+			padding: '20px 20px'
+		},
+		FEATURE_MENU_STYLE: {
+			width: '100%',
+			height: '95%',
+			backgroundColor: '#d6d6d6',
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'flex-start',
+			alignItems: 'flex-start',
+			boxSizing: 'border-box',
+			padding: '0'
+		},
+		BODY_STYLE: {
+			width: '90%',
+			height: '100%',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+			backgroundColor: '#333'
+		},
+		SVG_STYLE: {
+			backgroundColor: '#333'
+		},
+		CANVAS_COLOR: '#fff',
+		MENU_ITEM_STYLE: {
+			width: '90px',
+			height: '100px',
+			display: 'flex',
+			flexDirection: 'column'
+		},
+		MENU_ITEM_ICON_STYLE: {
+			height: '60px'
+		},
+		MENU_ITEM_TITLE_STYLE: {
+			textAlign: 'center',
+			userSelect: 'none'
+		},
+		FEATURE_MENU_ITEM_STYLE: {
+			width: '100%',
+			height: '40px',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+			cursor: 'pointer'
+		},
+		CONTEXT_MENU_STYLE: {
+			backgroundColor: '#f7f7f7',
+			listStyle: 'none',
+			textAlign: 'center',
+			padding: 0,
+			margin: 0
+		},
+		CONTEXT_MENU_ITEM_STYLE: {
+			padding: '2px 20px',
+			cursor: 'default'
+		},
+		SVG_SIZE: {
+			width: 1920,
+			height: 1080
+		},
+		SVG_ITEM_SIZE: {
+			width: 100,
+			height: 100
+		},
+		AUX_ITEM_SIZE: {
+			width: 10,
+			height: 10
+		},
+		MSG_STYLE: {
+			position: 'fixed',
+			left: '80%',
+			top: '20%',
+			transform: 'translate(-50%, -50%)',
+			padding: '20px 40px',
+			backgroundColor: '#f7f7f7',
+			color: '#333333'
+		}
 	}
 
 	//默认元素菜单配置
@@ -137,9 +149,14 @@
 					}
 				},
 				{
-					name: '自定义菜单1',
-					callBack: function() {
-						console.log('菜单可以自定义')
+					name: '向右旋转',
+					callBack: function(self) {
+						self.rotate += 90
+						if (self.rotate == 360) {
+							self.rotate = 0
+						}
+						self._resize()
+						biu.auxs.reLocate()
 					}
 				},
 				{
@@ -150,16 +167,15 @@
 				}
 			],
 			//自定义init事件
-			init : function(self) {
-				var itemMenuConf = getItemMenuConf()
+			init : function(self, itemMenu, svg) {
 				var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
 				var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-				rect.setAttribute('fill', itemMenuConf[self.item_name].color)
+				rect.setAttribute('fill', itemMenu[self.item_name].color)
 				var img = document.createElementNS('http://www.w3.org/2000/svg', 'image')
-				img.href.baseVal = itemMenuConf[self.item_name].url
+				img.href.baseVal = itemMenu[self.item_name].url
 				g.appendChild(rect)
 				g.appendChild(img)
-				BIU_GLOBAL.svg.appendChild(g)
+				svg.appendChild(g)
 				return g
 			}
 		},
@@ -167,84 +183,6 @@
 			title: '货箱',
 			url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/biu/menuItems/xiangzi.svg',
 			color: '#C4E1FF',
-			menus: [
-				{
-					name: '删除',
-					callBack: function(self) {
-						self.destory()
-					}
-				}
-			]
-		},
-		kaixiang: {
-			title: '开箱',
-			url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/biu/menuItems/kaixiang.svg',
-			color: '#D9FFFF',
-			menus: [
-				{
-					name: '删除',
-					callBack: function(self) {
-						self.destory()
-					}
-				}
-			]
-		},
-		kucun: {
-			title: '库存',
-			url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/biu/menuItems/kucun.svg',
-			color: '#D7FFEE',
-			menus: [
-				{
-					name: '删除',
-					callBack: function(self) {
-						self.destory()
-					}
-				}
-			]
-		},
-		dingwei: {
-			title: '定位',
-			url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/biu/menuItems/dingwei.svg',
-			color: '#BBFFBB',
-			menus: [
-				{
-					name: '删除',
-					callBack: function(self) {
-						self.destory()
-					}
-				}
-			]
-		},
-		jiansuo: {
-			title: '检索',
-			url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/biu/menuItems/jiansuo.svg',
-			color: '#DEFFAC',
-			menus: [
-				{
-					name: '删除',
-					callBack: function(self) {
-						self.destory()
-					}
-				}
-			]
-		},
-		louyu: {
-			title: '楼宇',
-			url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/biu/menuItems/louyu.svg',
-			color: '#FFFFB9',
-			menus: [
-				{
-					name: '删除',
-					callBack: function(self) {
-						self.destory()
-					}
-				}
-			]
-		},
-		tongji: {
-			title: '统计',
-			url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/biu/menuItems/tongji.svg',
-			color: '#FFF0AC',
 			menus: [
 				{
 					name: '删除',
@@ -261,13 +199,13 @@
 		{
 			name: '保存',
 			feature: function() {
-				console.log('保存数据')
+				biuMsg('保存数据')
 			}
 		},
 		{
 			name: '重置',
 			feature: function() {
-				console.log('重置数据')
+				biuMsg('重置数据')
 			}
 		}
 	]
@@ -296,7 +234,356 @@
 			//手动计算居中
 			self._dom.children[1].setAttribute('x', self.x + (self.width - 60)/2)
 			self._dom.children[1].setAttribute('y', self.y + (self.height - 60)/2)
+			self._dom.setAttribute('transform', 'rotate(' + self.rotate + ', ' + (self.x + self.width/2) + ', ' + (self.y + self.height/2) + ')')
 		}
+	}
+
+	//默认缩放事件
+	const AUX_ITEM_ZOOM = {
+		topLeftZoom: function (ev) {
+			//计算x与y的位移量
+			var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
+			var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
+			BIU_GLOBAL.mouse.x = ev.offsetX
+			BIU_GLOBAL.mouse.y = ev.offsetY
+			//计算元素实际需要移动的距离
+			var vector = getMoveXY(offsetX, offsetY)
+			//缩放当前元素,重新计算x,y,width,heigth
+			BIU_GLOBAL.checkedSVGItem.forEach(item => {
+				if (item.rotate == 0 || Math.abs(item.rotate) == 180) {
+					item.x = item.x + vector.x
+					item.y = item.y + vector.y
+					//缩小的移动不可越界
+					if (item.width - vector.x >= 20) {
+						item.width = item.width - vector.x
+					}
+					if (item.height - vector.y >= 20) {
+						item.height = item.height - vector.y
+					}
+				} else if (Math.abs(item.rotate) == 90 || Math.abs(item.rotate) == 270) {
+					//缩小的移动不可越界
+					if (item.width - vector.y >= 20) {
+						item.width = item.width - vector.y
+						item.x = item.x + (vector.x + vector.y) / 2
+					}
+					if (item.height - vector.x >= 20) {
+						item.height = item.height - vector.x
+						item.y = item.y + (vector.x + vector.y) / 2
+					}
+				}
+				item._resize()
+			})
+			//使辅助点也跟着移动
+			BIU_GLOBAL.checkedAUX.reLocate()
+		},
+		topMiddleZoom: function(ev) {
+			//计算x与y的位移量
+			var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
+			var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
+			BIU_GLOBAL.mouse.x = ev.offsetX
+			BIU_GLOBAL.mouse.y = ev.offsetY
+			//计算元素实际需要移动的距离
+			var vector = getMoveXY(offsetX, offsetY)
+			//缩放当前元素,重新计算x,y,width,heigth
+			BIU_GLOBAL.checkedSVGItem.forEach(item => {
+				if (item.rotate == 0 || Math.abs(item.rotate) == 180) {
+					item.y = item.y + vector.y
+					if (item.height - vector.y >= 20) {
+						item.height = item.height - vector.y
+					}
+				} else if (Math.abs(item.rotate) == 90 || Math.abs(item.rotate) == 270) {
+					//缩小的移动不可越界
+					if (item.width - vector.y >= 20) {
+						item.width = item.width - vector.y
+						item.y = item.y + vector.y / 2
+						item.x = item.x + vector.y / 2
+					} else {
+						item.y = item.y + vector.y
+					}
+				}
+				item._resize()
+			})
+			//使辅助点也跟着移动
+			BIU_GLOBAL.checkedAUX.reLocate()
+		},
+		topRightZoom: function(ev) {
+			//计算x与y的位移量
+			var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
+			var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
+			BIU_GLOBAL.mouse.x = ev.offsetX
+			BIU_GLOBAL.mouse.y = ev.offsetY
+			//计算元素实际需要移动的距离
+			var vector = getMoveXY(offsetX, offsetY)
+			//缩放当前元素,重新计算x,y,width,heigth
+			BIU_GLOBAL.checkedSVGItem.forEach(item => {
+				if (item.rotate == 0 || Math.abs(item.rotate) == 180) {
+					//缩小的移动不可越界
+					if (item.width + vector.x >= 20) {
+						item.width = item.width + vector.x
+					} else {
+						item.x = item.x + vector.x
+					}
+					if (item.height - vector.y >= 20) {
+						item.height = item.height - vector.y
+					}
+					item.y = item.y + vector.y
+				} else if (Math.abs(item.rotate) == 90 || Math.abs(item.rotate) == 270) {
+					//缩小的移动不可越界
+					if (item.width - vector.y >= 20) {
+						item.width = item.width - vector.y
+						item.x = item.x + (vector.x + vector.y) / 2
+					}
+					if (item.height + vector.x >= 20) {
+						item.height = item.height + vector.x
+						item.y = item.y - (vector.x - vector.y) / 2
+					}
+				}
+				item._resize()
+			})
+			//使辅助点也跟着移动
+			BIU_GLOBAL.checkedAUX.reLocate()
+		},
+		middleLeftZoom: function(ev) {
+			//计算x与y的位移量
+			var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
+			var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
+			BIU_GLOBAL.mouse.x = ev.offsetX
+			BIU_GLOBAL.mouse.y = ev.offsetY
+			//计算元素实际需要移动的距离
+			var vector = getMoveXY(offsetX, offsetY)
+			//缩放当前元素,重新计算x,y,width,heigth
+			BIU_GLOBAL.checkedSVGItem.forEach(item => {
+				if (item.rotate == 0 || Math.abs(item.rotate) == 180) {
+					//缩小的移动不可越界
+					item.x = item.x + vector.x
+					//缩小的移动不可越界
+					if (item.width - vector.x >= 20) {
+						item.width = item.width - vector.x
+					}
+				} else if (Math.abs(item.rotate) == 90 || Math.abs(item.rotate) == 270) {
+					//缩小的移动不可越界
+					if (item.height - vector.x >= 20) {
+						item.height = item.height - vector.x
+						item.y = item.y + vector.x / 2
+						item.x = item.x + vector.x / 2
+					} else {
+						item.x = item.x + vector.x
+					}
+				}
+				item._resize()
+			})
+			//使辅助点也跟着移动
+			BIU_GLOBAL.checkedAUX.reLocate()
+		},
+		middleRightZoom: function(ev) {
+			//计算x与y的位移量
+			var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
+			var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
+			BIU_GLOBAL.mouse.x = ev.offsetX
+			BIU_GLOBAL.mouse.y = ev.offsetY
+			//计算元素实际需要移动的距离
+			var vector = getMoveXY(offsetX, offsetY)
+			//缩放当前元素,重新计算x,y,width,heigth
+			BIU_GLOBAL.checkedSVGItem.forEach(item => {
+				if (item.rotate == 0 || Math.abs(item.rotate) == 180) {
+					//缩小的移动不可越界
+					if (item.width + vector.x >= 20) {
+						item.width = item.width + vector.x
+					} else {
+						item.x = item.x + vector.x
+					}
+				} else if (Math.abs(item.rotate) == 90 || Math.abs(item.rotate) == 270) {
+					//缩小的移动不可越界
+					if (item.height + vector.x >= 20) {
+						item.height = item.height + vector.x
+						item.y = item.y - vector.x / 2
+						item.x = item.x + vector.x / 2
+					} else {
+						item.x = item.x + vector.x
+					}
+				}
+				item._resize()
+			})
+			//使辅助点也跟着移动
+			BIU_GLOBAL.checkedAUX.reLocate()
+		},
+		bottomLeftZoom: function(ev) {
+			//计算x与y的位移量
+			var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
+			var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
+			BIU_GLOBAL.mouse.x = ev.offsetX
+			BIU_GLOBAL.mouse.y = ev.offsetY
+			//计算元素实际需要移动的距离
+			var vector = getMoveXY(offsetX, offsetY)
+			//缩放当前元素,重新计算x,y,width,heigth
+			BIU_GLOBAL.checkedSVGItem.forEach(item => {
+				if (item.rotate == 0 || Math.abs(item.rotate) == 180) {
+					item.x = item.x + vector.x
+					//缩小的移动不可越界
+					if (item.width - vector.x >= 20) {
+						item.width = item.width - vector.x
+					}
+					
+					if (item.height + vector.y >= 20) {
+						item.height = item.height + vector.y
+					} else {
+						item.y = item.y + vector.y
+					}
+				} else if (Math.abs(item.rotate) == 90 || Math.abs(item.rotate) == 270) {
+					//缩小的移动不可越界
+					if (item.width + vector.y >= 20) {
+						item.width = item.width + vector.y
+						item.x = item.x + (vector.x - vector.y)/2
+					}
+					if (item.height - vector.x >= 20) {
+						item.height = item.height - vector.x
+						item.y = item.y + (vector.x + vector.y)/2
+					}
+				}
+				item._resize()
+			})
+			//使辅助点也跟着移动
+			BIU_GLOBAL.checkedAUX.reLocate()
+		},
+		bottomMiddleZoom: function(ev) {
+			//计算x与y的位移量
+			var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
+			var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
+			BIU_GLOBAL.mouse.x = ev.offsetX
+			BIU_GLOBAL.mouse.y = ev.offsetY
+			//计算元素实际需要移动的距离
+			var vector = getMoveXY(offsetX, offsetY)
+			//缩放当前元素,重新计算x,y,width,heigth
+			BIU_GLOBAL.checkedSVGItem.forEach(item => {
+				if (item.rotate == 0 || Math.abs(item.rotate) == 180) {
+					if (item.height + vector.y >= 20) {
+						item.height = item.height + vector.y
+					} else {
+						item.y = item.y + vector.y
+					}
+				} else if (Math.abs(item.rotate) == 90 || Math.abs(item.rotate) == 270) {
+					//缩小的移动不可越界
+					if (item.width + vector.y >= 20) {
+						item.width = item.width + vector.y
+						item.x = item.x - vector.y/2
+						item.y = item.y + vector.y/2
+					} else {
+						item.y = item.y + vector.y
+					}
+				}
+				item._resize()
+			})
+			//使辅助点也跟着移动
+			BIU_GLOBAL.checkedAUX.reLocate()
+		},
+		bottomRightZoom: function(ev) {
+			//计算x与y的位移量
+			var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
+			var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
+			BIU_GLOBAL.mouse.x = ev.offsetX
+			BIU_GLOBAL.mouse.y = ev.offsetY
+			//计算元素实际需要移动的距离
+			var vector = getMoveXY(offsetX, offsetY)
+			//缩放当前元素,重新计算x,y,width,heigth
+			BIU_GLOBAL.checkedSVGItem.forEach(item => {
+				if (item.rotate == 0 || Math.abs(item.rotate) == 180) {
+					//缩小的移动不可越界
+					if (item.width + vector.x >= 20) {
+						item.width = item.width + vector.x
+					} else {
+						item.x = item.x + vector.x
+					}
+					if (item.height + vector.y >= 20) {
+						item.height = item.height + vector.y
+					} else {
+						item.y = item.y + vector.y
+					}
+				} else if (Math.abs(item.rotate) == 90 || Math.abs(item.rotate) == 270) {
+					//缩小的移动不可越界
+					if (item.width + vector.y >= 20) {
+						item.width = item.width + vector.y
+						item.x = item.x + (vector.x - vector.y)/2
+					}
+					if (item.height + vector.x >= 20) {
+						item.height = item.height + vector.x
+						item.y = item.y - (vector.x - vector.y)/2
+						item.y = item.y + (vector.x + vector.y)/2
+					}
+				}
+				item._resize()
+			})
+			//使辅助点也跟着移动
+			BIU_GLOBAL.checkedAUX.reLocate()
+		}
+	}
+
+	var BUILTIN_OBJECT = {
+	    '[object Function]': 1,
+	    '[object RegExp]': 1,
+	    '[object Date]': 1,
+	    '[object Error]': 1,
+	    '[object CanvasGradient]': 1,
+	    '[object CanvasPattern]': 1,
+	    // For node-canvas
+	    '[object Image]': 1,
+	    '[object Canvas]': 1
+	}
+	
+	var TYPED_ARRAY = {
+	    '[object Int8Array]': 1,
+	    '[object Uint8Array]': 1,
+	    '[object Uint8ClampedArray]': 1,
+	    '[object Int16Array]': 1,
+	    '[object Uint16Array]': 1,
+	    '[object Int32Array]': 1,
+	    '[object Uint32Array]': 1,
+	    '[object Float32Array]': 1,
+	    '[object Float64Array]': 1
+	}
+
+	var objToString = Object.prototype.toString;
+	
+	function isDom(value) {
+	    return typeof value === 'object'
+	        && typeof value.nodeType === 'number'
+	        && typeof value.ownerDocument === 'object';
+	}
+
+	//深度克隆
+	function clone(source) {
+	    if (source == null || typeof source !== 'object') {
+	        return source;
+	    }
+	
+	    var result = source;
+	    var typeStr = objToString.call(source);
+	
+	    if (typeStr === '[object Array]') {
+	        result = [];
+	        for (var i = 0, len = source.length; i < len; i++) {
+	            result[i] = clone(source[i]);
+	        }
+	    } else if (TYPED_ARRAY[typeStr]) {
+	        var Ctor = source.constructor;
+	        if (source.constructor.from) {
+	            result = Ctor.from(source);
+	        }
+	        else {
+	            result = new Ctor(source.length);
+	            for (var i = 0, len = source.length; i < len; i++) {
+	                result[i] = clone(source[i]);
+	            }
+	        }
+	    }
+	    else if (!BUILTIN_OBJECT[typeStr] && !isDom(source)) {
+	        result = {};
+	        for (var key in source) {
+	            if (source.hasOwnProperty(key)) {
+	                result[key] = clone(source[key]);
+	            }
+	        }
+	    }
+	    return result;
 	}
 
 	//处理用户style的个性配置
@@ -306,6 +593,11 @@
 		styleKeys.forEach(function(styleName) {
 			target.style[styleName] = opt[styleName] ? opt[styleName] : def[styleName]
 		})
+	}
+
+	//获得用户的style配置
+	function getStyle() {
+		return BIU_GLOBAL.option.style || {}
 	}
 
 	//各类全局对象
@@ -338,21 +630,50 @@
 			},
 			reArea: function() {
 				this.area = {}
-				//重新计算Area
+				//重新计算Area 加入旋转后元素的兼容
 				BIU_GLOBAL.checkedSVGItem.forEach(item => {
-					if (!this.area.minX || this.area.minX > item.x) {
-						this.area.minX = item.x
+					var center = item.getCenter()
+					item.rotate = item.rotate || 0
+					if (Math.abs(item.rotate) == 0 || Math.abs(item.rotate) == 180) {
+						if (!this.area.minX || this.area.minX > item.x) {
+							this.area.minX = item.x
+						}
+						if (!this.area.maxX || this.area.maxX < item.x + item.width) {
+							this.area.maxX = item.x + item.width
+						}
+						if (!this.area.minY || this.area.minY > item.y) {
+							this.area.minY = item.y
+						}
+						if (!this.area.maxY || this.area.maxY < item.y + item.height) {
+							this.area.maxY = item.y + item.height
+						}
+					} else if (Math.abs(item.rotate) == 90 || Math.abs(item.rotate) == 270) {
+						if (!this.area.minX || this.area.minX > center.x - item.height/2) {
+							this.area.minX = center.x - item.height/2
+						}
+						if (!this.area.maxX || this.area.maxX < center.x + item.height/2) {
+							this.area.maxX = center.x + item.height/2
+						}
+						if (!this.area.minY || this.area.minY > center.y - item.width/2) {
+							this.area.minY = center.y - item.width/2
+						}
+						if (!this.area.maxY || this.area.maxY < center.y + item.width/2) {
+							this.area.maxY = center.y + item.width/2
+						}
 					}
-					if (!this.area.maxX || this.area.maxX < item.x + item.width) {
-						this.area.maxX = item.x + item.width
-					}
-					if (!this.area.minY || this.area.minY > item.y) {
-						this.area.minY = item.y
-					}
-					if (!this.area.maxY || this.area.maxY < item.y + item.height) {
-						this.area.maxY = item.y + item.height
-					}
+					
 				})
+			},
+			reSize: function() {
+				for (let key in this.dots) {
+					this.dots[key]._resize()
+				}
+			},
+			reLocate: function() {
+				this.reArea()
+				for (let key in this.dots) {
+					this.dots[key]._resize()
+				}
 			}
 		},
 		mouse: {x: 0, y: 0, setPosition: function(ev) {
@@ -383,6 +704,72 @@
 					this.dom.style.right = (document.documentElement.clientWidth - x) + 'px'
 				}
 			}
+		},
+		//缩放队列，定义可行的缩放比例
+		zoomQueue: {
+			nowZoom: 7,
+			arr: [
+				{
+					name: '25%',
+					value: 4
+				},
+				{
+					name: '33%',
+					value: 3.03
+				},
+				{
+					name: '50%',
+					value: 2
+				},
+				{
+					name: '67%',
+					value: 1.49
+				},
+				{
+					name: '75%',
+					value: 1.33
+				},
+				{
+					name: '80%',
+					value: 1.25
+				},
+				{
+					name: '90%',
+					value: 1.11
+				},
+				{
+					name: '100%',
+					value: 1
+				},
+				{
+					name: '110%',
+					value: 0.91
+				},
+				{
+					name: '125%',
+					value: 0.8
+				},
+				{
+					name: '150%',
+					value: 0.67
+				},
+				{
+					name: '175%',
+					value: 0.57
+				},
+				{
+					name: '200%',
+					value: 0.5
+				},
+				{
+					name: '250%',
+					value: 0.4
+				},
+				{
+					name: '300%',
+					value: 0.33
+				}
+			]
 		}
 	}
 	
@@ -399,28 +786,28 @@
 	biuProto._initLayout = function() {
 		var self = this
 		//创建菜单对象
-		setStyle(document.getElementsByTagName('body')[0], BIU_GLOBAL.option.pageStyle, PAGE_STYLE)
-		setStyle(this._dom, BIU_GLOBAL.option.biuStyle, BIU_STYLE)
+		setStyle(document.getElementsByTagName('body')[0], getStyle().page, STYLE.PAGE_STYLE)
+		setStyle(this._dom, getStyle().biu, STYLE.BIU_STYLE)
 		//创建menu和body，作为容器
 		this._menu = document.createElement("div")
 		this._body = document.createElement("div")
 		this._dom.appendChild(this._menu)
 		this._dom.appendChild(this._body)
-		setStyle(this._menu, BIU_GLOBAL.option.menuStyle, MENU_STYLE)
-		setStyle(this._body, BIU_GLOBAL.option.bodyStyle, BODY_STYLE)
+		setStyle(this._menu, getStyle().menu, STYLE.MENU_STYLE)
+		setStyle(this._body, getStyle().body, STYLE.BODY_STYLE)
 		//创建元素菜单和功能菜单的按钮
 		this._itemMenuBtn = document.createElement('div')
 		this._featureMenuBtn = document.createElement('div')
-		setStyle(this._itemMenuBtn, BIU_GLOBAL.option.menuBtnStyle, ITEM_BTN_STYLE)
-		setStyle(this._featureMenuBtn, BIU_GLOBAL.option.menuBtnStyle, FEATURE_BTN_STYLE)
+		setStyle(this._itemMenuBtn, getStyle().menuBtn, STYLE.ITEM_BTN_STYLE)
+		setStyle(this._featureMenuBtn, getStyle().menuBtn, STYLE.FEATURE_BTN_STYLE)
 		this._itemMenuBtn.innerHTML = '元素'
 		this._featureMenuBtn.innerHTML = '功能'
 		this._menu.appendChild(this._itemMenuBtn)
 		this._menu.appendChild(this._featureMenuBtn)
 		this._itemMenu = document.createElement('div')
 		this._featureMenu = document.createElement('div')
-		setStyle(this._itemMenu, BIU_GLOBAL.option.subMenuStyle, ITEM_MENU_STYLE)
-		setStyle(this._featureMenu, BIU_GLOBAL.option.subMenuStyle, FEATURE_MENU_STYLE)
+		setStyle(this._itemMenu, getStyle().subMenu, STYLE.ITEM_MENU_STYLE)
+		setStyle(this._featureMenu, getStyle().subMenu, STYLE.FEATURE_MENU_STYLE)
 		self._featureMenu.style.display = 'none'
 		this._menu.appendChild(this._itemMenu)
 		this._menu.appendChild(this._featureMenu)
@@ -436,10 +823,27 @@
 		this._svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
 		this._body.appendChild(this._svg)
 		//SVG元素的样式与viewBox
-		var svgSize = BIU_GLOBAL.option.svgSize || {}
-		this._svg.setAttribute('viewBox', '0 0 ' + (svgSize.width ? svgSize.width : SVG_SIZE.width).toString() + ' ' + (
-			svgSize.height ? svgSize.height : SVG_SIZE.height).toString())
-		setStyle(this._svg, BIU_GLOBAL.option.svgStyle, SVG_STYLE)
+		var svgSize = getStyle().svgSize || STYLE.SVG_SIZE
+		this._svg.viewBox.baseVal.x = 0
+		this._svg.viewBox.baseVal.y = 0
+		this._svg.viewBox.baseVal.width = svgSize.width
+		this._svg.viewBox.baseVal.height = svgSize.height
+		//根据页面宽高比，设置SVGcss，务必保证不出现滚动条
+		setStyle(this._svg, getStyle().svg, STYLE.SVG_STYLE)
+		//如果屏幕比我更宽
+		if (document.body.clientWidth / document.body.clientHeight > svgSize.width / svgSize.height) {
+			this._svg.style.height = '100%'
+		} else {
+			this._svg.style.width = '100%'
+		}
+		//设置背景矩形，标明画布大小
+		var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+		rect.setAttribute('x', 0)
+		rect.setAttribute('y', 0)
+		rect.setAttribute('width', svgSize.width)
+		rect.setAttribute('height', svgSize.height)
+		rect.setAttribute('fill', getStyle().canvasColor || STYLE.CANVAS_COLOR)
+		this._svg.appendChild(rect)
 		//SVG对象应作为辅助点对象的父元素
 		BIU_GLOBAL.svg = this._svg
 	}
@@ -467,7 +871,7 @@
 		feaureMenuConf.forEach(feature => {
 			//创建dom元素，加入页面
 			var featureMenuItem = document.createElement('div')
-			setStyle(featureMenuItem, BIU_GLOBAL.option.fuatureMenuItem, FEATURE_MENU_ITEM_STYLE)
+			setStyle(featureMenuItem, BIU_GLOBAL.option.fuatureMenuItem, STYLE.FEATURE_MENU_ITEM_STYLE)
 			featureMenuItem.innerHTML = feature.name
 			featureMenuItem.addEventListener('click', feature.feature)
 			self._featureMenu.appendChild(featureMenuItem)
@@ -491,35 +895,109 @@
 			ev.preventDefault()
 			var item_name = ev.dataTransfer.getData("text")
 			//计算元素左上顶点的值
-			var svgSize = BIU_GLOBAL.option.svgSize || {}
-			var x = (ev.clientX - self._menu.clientWidth) * (svgSize.width ? svgSize.width : SVG_SIZE.width) / this.clientWidth
-			var y = ev.clientY * (svgSize.height ? svgSize.height : SVG_SIZE.height) / this.clientHeight
+			var ratio = BIU_GLOBAL.zoomQueue.arr[BIU_GLOBAL.zoomQueue.nowZoom].value
+			var svgSize = BIU_GLOBAL.option.svgSize || STYLE.SVG_SIZE
+			var x = svgSize.width * ratio * ev.offsetX / BIU_GLOBAL.svg.clientWidth + BIU_GLOBAL.svg.viewBox.baseVal.x
+			var y = svgSize.height * ratio * ev.offsetY / BIU_GLOBAL.svg.clientHeight + BIU_GLOBAL.svg.viewBox.baseVal.y
 			new SVGItem(item_name, x, y)
 		})
-		//点击背景，取消元素的选中
 		this._svg.addEventListener('mousedown', function() {
+			//点击背景，取消元素的选中
 			BIU_GLOBAL.checkedSVGItem.forEach(item => {
 				item.uncheckThis()
 			})
 			BIU_GLOBAL.checkedSVGItem = []
 			BIU_GLOBAL.checkedAUX.cleanDots()
-		})
-		//鼠标抬起时，取消所有位移事件
-		this._svg.addEventListener('mouseup', function() {
-			this.removeEventListener('mousemove', itemMove)
-			this.removeEventListener('mousemove', topLeftZoom)
-			this.removeEventListener('mousemove', topMiddleZoom)
-			this.removeEventListener('mousemove', topRightZoom)
-			this.removeEventListener('mousemove', middleLeftZoom)
-			this.removeEventListener('mousemove', middleRightZoom)
-			this.removeEventListener('mousemove', bottomLeftZoom)
-			this.removeEventListener('mousemove', bottomMiddleZoom)
-			this.removeEventListener('mousemove', bottomRightZoom)
-		})
-		//背景板可以取消右键菜单
-		this._svg.addEventListener('mousedown', function() {
+			//背景板可以取消右键菜单
 			BIU_GLOBAL.contextMenu.hide()
 		})
+		//鼠标抬起时或经过body时
+		this._svg.addEventListener('mouseover', function(ev) {
+			ev.stopPropagation()
+		})
+		this._body.addEventListener('mouseover', function() {
+			self._svg.removeEventListener('mousemove', itemMove)
+			self._svg.removeEventListener('mousemove', topLeftZoom)
+			self._svg.removeEventListener('mousemove', topMiddleZoom)
+			self._svg.removeEventListener('mousemove', topRightZoom)
+			self._svg.removeEventListener('mousemove', middleLeftZoom)
+			self._svg.removeEventListener('mousemove', middleRightZoom)
+			self._svg.removeEventListener('mousemove', bottomLeftZoom)
+			self._svg.removeEventListener('mousemove', bottomMiddleZoom)
+			self._svg.removeEventListener('mousemove', bottomRightZoom)
+		})
+		this._body.addEventListener('mouseup', function() {
+			self._svg.removeEventListener('mousemove', itemMove)
+			self._svg.removeEventListener('mousemove', topLeftZoom)
+			self._svg.removeEventListener('mousemove', topMiddleZoom)
+			self._svg.removeEventListener('mousemove', topRightZoom)
+			self._svg.removeEventListener('mousemove', middleLeftZoom)
+			self._svg.removeEventListener('mousemove', middleRightZoom)
+			self._svg.removeEventListener('mousemove', bottomLeftZoom)
+			self._svg.removeEventListener('mousemove', bottomMiddleZoom)
+			self._svg.removeEventListener('mousemove', bottomRightZoom)
+		})
+		//滚轮事件，处理缩放
+		this._body.addEventListener('wheel', function(ev) {
+			if (ev.deltaY < 0) {
+				if (BIU_GLOBAL.zoomQueue.nowZoom < BIU_GLOBAL.zoomQueue.arr.length - 1) {
+					BIU_GLOBAL.zoomQueue.nowZoom += 1
+					zoomSVG()
+					BIU_GLOBAL.checkedAUX.reSize()
+				}
+			} else {
+				if (BIU_GLOBAL.zoomQueue.nowZoom > 0) {
+					BIU_GLOBAL.zoomQueue.nowZoom -= 1
+					zoomSVG()
+					BIU_GLOBAL.checkedAUX.reSize()
+				}
+			}
+		})
+		//整页拖拽的开始和结束
+		this._svg.addEventListener('mousedown', function(ev) {
+			BIU_GLOBAL.mouse.setPosition(ev)
+			this.addEventListener('mousemove', dragAll)
+		})
+		this._body.addEventListener('mouseover', function() {
+			self._svg.removeEventListener('mousemove', dragAll)
+		})
+		this._body.addEventListener('mouseup', function() {
+			self._svg.removeEventListener('mousemove', dragAll)
+		})
+	}
+	
+	function dragAll(ev) {
+		//计算x与y的位移量
+		var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
+		var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
+		BIU_GLOBAL.mouse.x = ev.offsetX
+		BIU_GLOBAL.mouse.y = ev.offsetY
+		//计算背景实际需要移动的距离
+		var move = getMoveXY(offsetX, offsetY)
+		var xMove = move.x
+		var yMove = move.y
+		//让背景动起来
+		this.viewBox.baseVal.x -= xMove
+		this.viewBox.baseVal.y -= yMove
+	}
+	
+	//全局缩放事件，重计算viewBox
+	function zoomSVG() {
+		var ratio = BIU_GLOBAL.zoomQueue.arr[BIU_GLOBAL.zoomQueue.nowZoom].value
+		var svgSize = getStyle().svgSize || STYLE.SVG_SIZE
+		BIU_GLOBAL.svg.viewBox.baseVal.width = svgSize.width * ratio
+		BIU_GLOBAL.svg.viewBox.baseVal.height = svgSize.height * ratio
+		biuMsg('当前缩放比例:' + BIU_GLOBAL.zoomQueue.arr[BIU_GLOBAL.zoomQueue.nowZoom].name)
+	}
+	
+	function biuMsg(msg) {
+		var div = document.createElement('div')
+		div.innerHTML = msg
+		setStyle(div, getStyle().msg, STYLE.MSG_STYLE)
+		document.getElementsByTagName('body')[0].appendChild(div)
+		setTimeout(function() {
+			div.parentNode.removeChild(div)
+		}, 2000)
 	}
 
 	/**
@@ -533,257 +1011,97 @@
 		BIU_GLOBAL.mouse.x = ev.offsetX
 		BIU_GLOBAL.mouse.y = ev.offsetY
 		//计算元素实际需要移动的距离
-		var svgSize = BIU_GLOBAL.option.svgSize || {}
-		var xMove = offsetX * (svgSize.width ? svgSize.width : SVG_SIZE.width) / BIU_GLOBAL.svg.clientWidth
-		var yMove = offsetY * (svgSize.height ? svgSize.height : SVG_SIZE.height) / BIU_GLOBAL.svg.clientHeight
+		var vector = getMoveXY(offsetX, offsetY)
 		//使每一个元素也移动同样的距离
 		BIU_GLOBAL.checkedSVGItem.forEach(item => {
-			item.x = item.x + xMove
-			item.y = item.y + yMove
+			item.x = item.x + vector.x
+			item.y = item.y + vector.y
 			item._resize()
 		})
 		//使辅助点也跟着移动
-		BIU_GLOBAL.checkedAUX.reArea()
-		for (let key in BIU_GLOBAL.checkedAUX.dots) {
-			BIU_GLOBAL.checkedAUX.dots[key]._resize()
-		}
+		BIU_GLOBAL.checkedAUX.reLocate()
 	}
 	
 	//单个元素的缩放事件，左上
 	function topLeftZoom(ev) {
-		//计算x与y的位移量
-		var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
-		var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
-		BIU_GLOBAL.mouse.x = ev.offsetX
-		BIU_GLOBAL.mouse.y = ev.offsetY
-		//计算元素实际需要移动的距离
-		var svgSize = BIU_GLOBAL.option.svgSize || {}
-		var xMove = offsetX * (svgSize.width ? svgSize.width : SVG_SIZE.width) / BIU_GLOBAL.svg.clientWidth
-		var yMove = offsetY * (svgSize.height ? svgSize.height : SVG_SIZE.height) / BIU_GLOBAL.svg.clientHeight
-		//缩放当前元素,重新计算x,y,width,heigth
-		BIU_GLOBAL.checkedSVGItem.forEach(item => {
-			item.x = item.x + xMove
-			item.y = item.y + yMove
-			//缩小的移动不可越界
-			if (item.width - xMove >= 20) {
-				item.width = item.width - xMove
-			}
-			if (item.height - yMove >= 20) {
-				item.height = item.height - yMove
-			}
-			item._resize()
-		})
-		//使辅助点也跟着移动
-		BIU_GLOBAL.checkedAUX.reArea()
-		for (let key in BIU_GLOBAL.checkedAUX.dots) {
-			BIU_GLOBAL.checkedAUX.dots[key]._resize()
-		}
+		var menuConf = getItemMenuConf()
+		var auxItemZoomOption = BIU_GLOBAL.option.auxItemZoom || {}
+		//当前元素自定义的缩放事件，或用户自定义的全局缩放事件，或默认缩放事件
+		var fun = menuConf[BIU_GLOBAL.checkedSVGItem[0].item_name].topLeftZoom || auxItemZoomOption.topLeftZoom || AUX_ITEM_ZOOM.topLeftZoom
+		fun(ev)
 	}
 	
 	//单个元素的缩放事件，中上
 	function topMiddleZoom(ev) {
-		//计算x与y的位移量
-		var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
-		var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
-		BIU_GLOBAL.mouse.x = ev.offsetX
-		BIU_GLOBAL.mouse.y = ev.offsetY
-		//计算元素实际需要移动的距离
-		var svgSize = BIU_GLOBAL.option.svgSize || {}
-		var xMove = offsetX * (svgSize.width ? svgSize.width : SVG_SIZE.width) / BIU_GLOBAL.svg.clientWidth
-		var yMove = offsetY * (svgSize.height ? svgSize.height : SVG_SIZE.height) / BIU_GLOBAL.svg.clientHeight
-		//缩放当前元素,重新计算x,y,width,heigth
-		BIU_GLOBAL.checkedSVGItem.forEach(item => {
-			item.y = item.y + yMove
-			if (item.height - yMove >= 20) {
-				item.height = item.height - yMove
-			}
-			item._resize()
-		})
-		//使辅助点也跟着移动
-		BIU_GLOBAL.checkedAUX.reArea()
-		for (let key in BIU_GLOBAL.checkedAUX.dots) {
-			BIU_GLOBAL.checkedAUX.dots[key]._resize()
-		}
+		var menuConf = getItemMenuConf()
+		var auxItemZoomOption = BIU_GLOBAL.option.auxItemZoom || {}
+		//当前元素自定义的缩放事件，或用户自定义的全局缩放事件，或默认缩放事件
+		var fun = menuConf[BIU_GLOBAL.checkedSVGItem[0].item_name].topMiddleZoom || auxItemZoomOption.topMiddleZoom || AUX_ITEM_ZOOM.topMiddleZoom
+		fun(ev)
 	}
 	
 	//单个元素的缩放事件，右上
 	function topRightZoom(ev){
-		//计算x与y的位移量
-		var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
-		var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
-		BIU_GLOBAL.mouse.x = ev.offsetX
-		BIU_GLOBAL.mouse.y = ev.offsetY
-		//计算元素实际需要移动的距离
-		var svgSize = BIU_GLOBAL.option.svgSize || {}
-		var xMove = offsetX * (svgSize.width ? svgSize.width : SVG_SIZE.width) / BIU_GLOBAL.svg.clientWidth
-		var yMove = offsetY * (svgSize.height ? svgSize.height : SVG_SIZE.height) / BIU_GLOBAL.svg.clientHeight
-		//缩放当前元素,重新计算x,y,width,heigth
-		BIU_GLOBAL.checkedSVGItem.forEach(item => {
-			//缩小的移动不可越界
-			if (item.width + xMove >= 20) {
-				item.width = item.width + xMove
-			} else {
-				item.x = item.x + xMove
-			}
-			if (item.height - yMove >= 20) {
-				item.height = item.height - yMove
-			}
-			item.y = item.y + yMove
-			item._resize()
-		})
-		//使辅助点也跟着移动
-		BIU_GLOBAL.checkedAUX.reArea()
-		for (let key in BIU_GLOBAL.checkedAUX.dots) {
-			BIU_GLOBAL.checkedAUX.dots[key]._resize()
-		}
+		var menuConf = getItemMenuConf()
+		var auxItemZoomOption = BIU_GLOBAL.option.auxItemZoom || {}
+		//当前元素自定义的缩放事件，或用户自定义的全局缩放事件，或默认缩放事件
+		var fun = menuConf[BIU_GLOBAL.checkedSVGItem[0].item_name].topRightZoom || auxItemZoomOption.topRightZoom || AUX_ITEM_ZOOM.topRightZoom
+		fun(ev)
 	}
 	
 	//左中点的缩放
 	function middleLeftZoom(ev) {
-		//计算x与y的位移量
-		var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
-		var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
-		BIU_GLOBAL.mouse.x = ev.offsetX
-		BIU_GLOBAL.mouse.y = ev.offsetY
-		//计算元素实际需要移动的距离
-		var svgSize = BIU_GLOBAL.option.svgSize || {}
-		var xMove = offsetX * (svgSize.width ? svgSize.width : SVG_SIZE.width) / BIU_GLOBAL.svg.clientWidth
-		var yMove = offsetY * (svgSize.height ? svgSize.height : SVG_SIZE.height) / BIU_GLOBAL.svg.clientHeight
-		//缩放当前元素,重新计算x,y,width,heigth
-		BIU_GLOBAL.checkedSVGItem.forEach(item => {
-			//缩小的移动不可越界
-			item.x = item.x + xMove
-			//缩小的移动不可越界
-			if (item.width - xMove >= 20) {
-				item.width = item.width - xMove
-			}
-			item._resize()
-		})
-		//使辅助点也跟着移动
-		BIU_GLOBAL.checkedAUX.reArea()
-		for (let key in BIU_GLOBAL.checkedAUX.dots) {
-			BIU_GLOBAL.checkedAUX.dots[key]._resize()
-		}
+		var menuConf = getItemMenuConf()
+		var auxItemZoomOption = BIU_GLOBAL.option.auxItemZoom || {}
+		//当前元素自定义的缩放事件，或用户自定义的全局缩放事件，或默认缩放事件
+		var fun = menuConf[BIU_GLOBAL.checkedSVGItem[0].item_name].middleLeftZoom || auxItemZoomOption.middleLeftZoom || AUX_ITEM_ZOOM.middleLeftZoom
+		fun(ev)
 	}
 	
 	//右中点的缩放
 	function middleRightZoom(ev) {
-		//计算x与y的位移量
-		var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
-		var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
-		BIU_GLOBAL.mouse.x = ev.offsetX
-		BIU_GLOBAL.mouse.y = ev.offsetY
-		//计算元素实际需要移动的距离
-		var svgSize = BIU_GLOBAL.option.svgSize || {}
-		var xMove = offsetX * (svgSize.width ? svgSize.width : SVG_SIZE.width) / BIU_GLOBAL.svg.clientWidth
-		var yMove = offsetY * (svgSize.height ? svgSize.height : SVG_SIZE.height) / BIU_GLOBAL.svg.clientHeight
-		//缩放当前元素,重新计算x,y,width,heigth
-		BIU_GLOBAL.checkedSVGItem.forEach(item => {
-			//缩小的移动不可越界
-			if (item.width + xMove >= 20) {
-				item.width = item.width + xMove
-			} else {
-				item.x = item.x + xMove
-			}
-			item._resize()
-		})
-		//使辅助点也跟着移动
-		BIU_GLOBAL.checkedAUX.reArea()
-		for (let key in BIU_GLOBAL.checkedAUX.dots) {
-			BIU_GLOBAL.checkedAUX.dots[key]._resize()
-		}
+		var menuConf = getItemMenuConf()
+		var auxItemZoomOption = BIU_GLOBAL.option.auxItemZoom || {}
+		//当前元素自定义的缩放事件，或用户自定义的全局缩放事件，或默认缩放事件
+		var fun = menuConf[BIU_GLOBAL.checkedSVGItem[0].item_name].middleRightZoom || auxItemZoomOption.middleRightZoom || AUX_ITEM_ZOOM.middleRightZoom
+		fun(ev)
 	}
 
 	//左下辅助点缩放事件
 	function bottomLeftZoom(ev) {
-		//计算x与y的位移量
-		var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
-		var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
-		BIU_GLOBAL.mouse.x = ev.offsetX
-		BIU_GLOBAL.mouse.y = ev.offsetY
-		//计算元素实际需要移动的距离
-		var svgSize = BIU_GLOBAL.option.svgSize || {}
-		var xMove = offsetX * (svgSize.width ? svgSize.width : SVG_SIZE.width) / BIU_GLOBAL.svg.clientWidth
-		var yMove = offsetY * (svgSize.height ? svgSize.height : SVG_SIZE.height) / BIU_GLOBAL.svg.clientHeight
-		//缩放当前元素,重新计算x,y,width,heigth
-		BIU_GLOBAL.checkedSVGItem.forEach(item => {
-			item.x = item.x + xMove
-			//缩小的移动不可越界
-			if (item.width - xMove >= 20) {
-				item.width = item.width - xMove
-			}
-			
-			if (item.height + yMove >= 20) {
-				item.height = item.height + yMove
-			} else {
-				item.y = item.y + yMove
-			}
-			item._resize()
-		})
-		//使辅助点也跟着移动
-		BIU_GLOBAL.checkedAUX.reArea()
-		for (let key in BIU_GLOBAL.checkedAUX.dots) {
-			BIU_GLOBAL.checkedAUX.dots[key]._resize()
-		}
+		var menuConf = getItemMenuConf()
+		var auxItemZoomOption = BIU_GLOBAL.option.auxItemZoom || {}
+		//当前元素自定义的缩放事件，或用户自定义的全局缩放事件，或默认缩放事件
+		var fun = menuConf[BIU_GLOBAL.checkedSVGItem[0].item_name].bottomLeftZoom || auxItemZoomOption.bottomLeftZoom || AUX_ITEM_ZOOM.bottomLeftZoom
+		fun(ev)
 	}
 	
 	//中下辅助点缩放事件
 	function bottomMiddleZoom(ev) {
-		//计算x与y的位移量
-		var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
-		var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
-		BIU_GLOBAL.mouse.x = ev.offsetX
-		BIU_GLOBAL.mouse.y = ev.offsetY
-		//计算元素实际需要移动的距离
-		var svgSize = BIU_GLOBAL.option.svgSize || {}
-		var xMove = offsetX * (svgSize.width ? svgSize.width : SVG_SIZE.width) / BIU_GLOBAL.svg.clientWidth
-		var yMove = offsetY * (svgSize.height ? svgSize.height : SVG_SIZE.height) / BIU_GLOBAL.svg.clientHeight
-		//缩放当前元素,重新计算x,y,width,heigth
-		BIU_GLOBAL.checkedSVGItem.forEach(item => {
-			if (item.height + yMove >= 20) {
-				item.height = item.height + yMove
-			} else {
-				item.y = item.y + yMove
-			}
-			item._resize()
-		})
-		//使辅助点也跟着移动
-		BIU_GLOBAL.checkedAUX.reArea()
-		for (let key in BIU_GLOBAL.checkedAUX.dots) {
-			BIU_GLOBAL.checkedAUX.dots[key]._resize()
-		}
+		var menuConf = getItemMenuConf()
+		var auxItemZoomOption = BIU_GLOBAL.option.auxItemZoom || {}
+		//当前元素自定义的缩放事件，或用户自定义的全局缩放事件，或默认缩放事件
+		var fun = menuConf[BIU_GLOBAL.checkedSVGItem[0].item_name].bottomMiddleZoom || auxItemZoomOption.bottomMiddleZoom || AUX_ITEM_ZOOM.bottomMiddleZoom
+		fun(ev)
 	}
 	
 	//右下辅助点缩放事件
 	function bottomRightZoom(ev) {
-		//计算x与y的位移量
-		var offsetX = ev.offsetX - BIU_GLOBAL.mouse.x
-		var offsetY = ev.offsetY - BIU_GLOBAL.mouse.y
-		BIU_GLOBAL.mouse.x = ev.offsetX
-		BIU_GLOBAL.mouse.y = ev.offsetY
+		var menuConf = getItemMenuConf()
+		var auxItemZoomOption = BIU_GLOBAL.option.auxItemZoom || {}
+		//当前元素自定义的缩放事件，或用户自定义的全局缩放事件，或默认缩放事件
+		var fun = menuConf[BIU_GLOBAL.checkedSVGItem[0].item_name].bottomRightZoom || auxItemZoomOption.bottomRightZoom || AUX_ITEM_ZOOM.bottomRightZoom
+		fun(ev)
+	}
+	
+	//计算实际位移向量
+	function getMoveXY(offsetX, offsetY) {
 		//计算元素实际需要移动的距离
-		var svgSize = BIU_GLOBAL.option.svgSize || {}
-		var xMove = offsetX * (svgSize.width ? svgSize.width : SVG_SIZE.width) / BIU_GLOBAL.svg.clientWidth
-		var yMove = offsetY * (svgSize.height ? svgSize.height : SVG_SIZE.height) / BIU_GLOBAL.svg.clientHeight
-		//缩放当前元素,重新计算x,y,width,heigth
-		BIU_GLOBAL.checkedSVGItem.forEach(item => {
-			//缩小的移动不可越界
-			if (item.width + xMove >= 20) {
-				item.width = item.width + xMove
-			} else {
-				item.x = item.x + xMove
-			}
-			if (item.height + yMove >= 20) {
-				item.height = item.height + yMove
-			} else {
-				item.y = item.y + yMove
-			}
-			item._resize()
-		})
-		//使辅助点也跟着移动
-		BIU_GLOBAL.checkedAUX.reArea()
-		for (let key in BIU_GLOBAL.checkedAUX.dots) {
-			BIU_GLOBAL.checkedAUX.dots[key]._resize()
+		var ratio = BIU_GLOBAL.zoomQueue.arr[BIU_GLOBAL.zoomQueue.nowZoom].value
+		var svgSize = getStyle().svgSize || STYLE.SVG_SIZE
+		return {
+			x: offsetX * (svgSize.width * ratio) / BIU_GLOBAL.svg.clientWidth,
+			y: offsetY * (svgSize.height * ratio) / BIU_GLOBAL.svg.clientHeight
 		}
 	}
 	
@@ -792,7 +1110,7 @@
 		var ul = document.createElement('ul')
 		ul.style.display = 'none'
 		ul.style.position = 'absolute'
-		setStyle(ul, BIU_GLOBAL.option.contextMenuStyle, CONTEXT_MENU_STYLE)
+		setStyle(ul, getStyle().contextMenu, STYLE.CONTEXT_MENU_STYLE)
 		document.getElementsByTagName('body')[0].appendChild(ul)
 		BIU_GLOBAL.contextMenu.dom = ul
 	}
@@ -829,17 +1147,17 @@
 
 	menuItemProto._initDom = function(key) {
 		//配置DOM元素样式
-		setStyle(this._dom, BIU_GLOBAL.option.menuItemStyle, MENU_ITEM_STYLE)
+		setStyle(this._dom, getStyle().menuItem, STYLE.MENU_ITEM_STYLE)
 		this._dom.style.backgroundColor = this._item.color
 		this._dom.setAttribute('draggable', 'true')
 		this._parent.appendChild(this._dom)
 		var icon = document.createElement('img')
 		icon.setAttribute('src', this._item.url)
 		icon.setAttribute('draggable', 'false')
-		setStyle(icon, BIU_GLOBAL.option.menuItemIconStyle, MENU_ITEM_ICON_STYLE)
+		setStyle(icon, getStyle().menuItemIcon, STYLE.MENU_ITEM_ICON_STYLE)
 		var title = document.createElement('div')
 		title.innerText = this._item.title
-		setStyle(title, BIU_GLOBAL.option.menuItemTitleStyle, MENU_ITEM_TITLE_STYLE)
+		setStyle(title, getStyle().menuItemTitle, STYLE.MENU_ITEM_TITLE_STYLE)
 		this._dom.appendChild(icon)
 		this._dom.appendChild(title)
 	}
@@ -857,10 +1175,13 @@
 		this.x = x
 		this.y = y
 		this.checked = false
-		var svgItemSize = BIU_GLOBAL.option.svgItemSize || {}
-		this.width = svgItemSize.width ? svgItemSize.width : SVG_ITEM_SIZE.width
-		this.height = svgItemSize.height ? svgItemSize.height : SVG_ITEM_SIZE.height,
-		this.data = data || {}
+		var itemMenuConf = getItemMenuConf()
+		var svgItemSize = itemMenuConf[item_name].size || STYLE.SVG_ITEM_SIZE
+		this.width = svgItemSize.width
+		this.height = svgItemSize.height
+		//用户传入，或默认，或空
+		this.data = clone(data || itemMenuConf[item_name].data || {})
+		this.rotate = 0
 		this._dom = this._initDom()
 		this._initEvent()
 		this._resize()
@@ -911,7 +1232,7 @@
 				menuItem.menus.forEach(menuEntry => {
 					var li = document.createElement('li')
 					li.innerHTML = menuEntry.name
-					setStyle(li, BIU_GLOBAL.option.contextMenuItemStyle, CONTEXT_MENU_ITEM_STYLE)
+					setStyle(li, BIU_GLOBAL.option.contextMenuItemStyle, STYLE.CONTEXT_MENU_ITEM_STYLE)
 					li.addEventListener('click', function() {
 						menuEntry.callBack(self)
 						//执行后隐藏右键菜单
@@ -983,6 +1304,13 @@
 		BIU_GLOBAL.svg.removeChild(this._dom)
 	}
 	
+	SVGItemProto.getCenter = function() {
+		return {
+			x: this.x + this.width / 2,
+			y: this.y + this.height / 2
+		}
+	}
+	
 	/**
 	 * 八个选择辅助点对象的定义
 	 */
@@ -992,9 +1320,10 @@
 			BIU_GLOBAL.svg.removeChild(this._dom)
 		},
 		this._getSize = function() {
-			var auxItemSize = BIU_GLOBAL.option.auxItemSize || {}
-			this.width = auxItemSize.width ? auxItemSize.width : AUX_ITEM_SIZE.width
-			this.height = auxItemSize.height ? auxItemSize.height : AUX_ITEM_SIZE.height
+			var auxItemSize = BIU_GLOBAL.option.auxItemSize || STYLE.AUX_ITEM_SIZE
+			//不管缩放，永远保持展示大小的一致
+			this.width = auxItemSize.width * BIU_GLOBAL.zoomQueue.arr[BIU_GLOBAL.zoomQueue.nowZoom].value
+			this.height = auxItemSize.height * BIU_GLOBAL.zoomQueue.arr[BIU_GLOBAL.zoomQueue.nowZoom].value
 		},
 		this._initDom = function() {
 			var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
@@ -1205,4 +1534,5 @@
 	exports.init = init
 	exports.createItem = createItem
 	exports.items = BIU_GLOBAL.SVGItems
+	exports.auxs = BIU_GLOBAL.checkedAUX
 })));

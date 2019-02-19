@@ -94,12 +94,11 @@
 				for (var x = 0; x < list.length; x++) {
 					html += '<tr>'
 					html += '<td>' + list[x].title + '</td>'
-					html += '<td><button class="layui-btn layui-btn-normal" onclick="biu(\'' + list[x].id + '\')">拖拽布局</button>'
+					html += '<td><button class="layui-btn layui-btn-normal" onclick="biu(\'' + list[x].id + '\')">编辑</button>'
 					html += '<button class="layui-btn layui-btn-normal" onclick="editElement(\'' + list[x].id + '\', \'dbhtml.html\', \'HTML元素列表\')">HTML</button>'
 					html += '<button class="layui-btn layui-btn-normal" onclick="editElement(\'' + list[x].id + '\', \'chart.html\', \'CHART元素列表\')">CHART</button>'
 					html += '<button class="layui-btn layui-btn-normal" onclick="editElement(\'' + list[x].id + '\', \'table.html\', \'TABLE元素列表\')">TABLE</button>'
 					html += '<button class="layui-btn layui-btn-normal" onclick="editElement(\'' + list[x].id + '\', \'img.html\', \'IMG元素列表\')">IMG</button>'
-					html += '<button class="layui-btn layui-btn-normal" onclick="editElement(\'' + list[x].id + '\', \'boardUpdate.html\', \'看板编辑\')">看板</button>'
 					html += '<button class="layui-btn layui-btn-normal" onclick="delThis(\'' + list[x].id + '\')">删除</button></td>'
 					html += '</tr>'
 				}

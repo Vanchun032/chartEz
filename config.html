@@ -11,12 +11,6 @@
 		<div class="layui-layout layui-layout-admin">
 			<div class="layui-header">
 				<div class="layui-logo">看板配置</div>
-				<ul class="layui-nav layui-layout-right">
-					<li class="layui-nav-item">
-						<a id="username" href="javascript:;"></a>
-					</li>
-					<li class="layui-nav-item"><a href="javascript:;" onclick="logout()">退出</a></li>
-				</ul>
 			</div>
 
 			<div class="layui-side layui-bg-black">
@@ -39,12 +33,7 @@
 		<script src="js/jquery-3.3.1.min.js"></script>
 		<script src="layui/layui.js"></script>
 		<script src="js/app.js"></script>
-		<script>
-			window.logout = function() {
-				storage.setItem("user", '')
-				window.location.href = './login.html'
-			}
-			
+		<script>			
 			window.showThis = function(url) {
 				var pathArray = window.location.href.split('/')
 				var toUrl = ''
@@ -53,7 +42,9 @@
 				}
 				toUrl += url
 				$('#pageFrame').attr('src', toUrl)
-			}			
+			}
+					
+			showThis('board.html')
 		</script>
 	</body>
 </html>

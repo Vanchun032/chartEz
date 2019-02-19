@@ -1,5 +1,5 @@
-var serverIP = 'http://120.77.60.26'
-var serverAddress = serverIP + ':80/dtkanban/m/'
+var serverIP = 'http://chartez.suyun2006.com'
+var serverAddress = serverIP + '/chartEz/m/'
 var storage = window.localStorage
 
 window.callAjax = function(url, para, callBack) {
