@@ -84,6 +84,64 @@
 	<script src="js/biu.js"></script>
 	<script>
 		layui.use(['layer'], function(layer) {
+			
+			function delElement(ob, id, type) {
+				layer.open({
+					content: '确定删除该记录？',
+					btn: ['确定', '取消'],
+					yes: function(index, layero) {
+						layer.close(index)
+						callAjax(type + "/delete", {
+							id: id,
+						}, function(res) {
+							if (res.code == 1) {
+								layer.msg("删除成功")
+								ob.destory()
+							}
+						})
+					},
+					btn2: function(index, layero) {}
+				})
+			}
+			
+			function createElement(item_name, x, y) {
+				//参数回填
+				$('#newitem_name').val('')
+				//配置回调
+				$('#newitem_btn').click(function() {
+					var param = {
+						db_id: dbId,
+						name: $('#newitem_name').val(),
+						config: JSON.stringify({
+							top: y,
+							left: x,
+							width: 100,
+							height: 100
+						}),
+						style: '{}'
+					}
+					callAjax(item_name + '/update/returnid', param, function(res) {
+						layer.closeAll()
+						$('#newitem_btn').off('click')
+						if (res.code == 1) {
+							param.id = res.data
+							biu.createItem(item_name, x, y, param)
+						} else {
+							layer.msg('系统异常')
+						}
+					})
+				})
+				//打开页面
+				layer.open({
+					type: 1,
+					title: false,
+					content: $('#newitem_page'),
+					area: '500px',
+					btn: false,
+					shadeClose: true
+				})
+			}
+			
 			var layer = layer
 			var dbId = getQueryString("id")
 			//加载并保存后台数据
@@ -150,62 +208,14 @@
 							menus: [{
 								name: '删除',
 								callBack: function(self) {
-									layer.open({
-										content: '确定删除该记录？',
-										btn: ['确定', '取消'],
-										yes: function(index, layero) {
-											layer.close(index)
-											callAjax("html/delete", {
-												id: self.data.id,
-											}, function(res) {
-												if (res.code == 1) {
-													layer.msg("删除成功")
-													self.destory()
-												}
-											})
-										},
-										btn2: function(index, layero) {}
-									})
+									delElement(self, self.data.id, self.item_name)
 								}
 							}],
 							data: {
 								name: 'html元素'
 							},
 							before: function(item_name, x, y) {
-								//参数回填
-								$('#newitem_name').val('')
-								//配置回调
-								$('#newitem_btn').click(function() {
-									var param = {
-										db_id: dbId,
-										name: $('#newitem_name').val(),
-										config: JSON.stringify({
-											top: y,
-											left: x,
-											width: 100,
-											height: 100
-										})
-									}
-									callAjax(item_name + '/update/returnid', param, function(res) {
-										layer.closeAll()
-										$('#newitem_btn').off('click')
-										if (res.code == 1) {
-											param.id = res.data
-											biu.createItem(item_name, x, y, param)
-										} else {
-											layer.msg('系统异常')
-										}
-									})
-								})
-								//打开页面
-								layer.open({
-									type: 1,
-									title: false,
-									content: $('#newitem_page'),
-									area: '500px',
-									btn: false,
-									shadeClose: true
-								})
+								createElement(item_name, x, y)
 							},
 							init: function(self, itemMenu, svg) {
 								var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
@@ -235,11 +245,14 @@
 							menus: [{
 								name: '删除',
 								callBack: function(self) {
-									self.destory()
+									delElement(self, self.data.id, self.item_name)
 								}
 							}],
 							data: {
 								name: 'chart元素'
+							},
+							before: function(item_name, x, y) {
+								createElement(item_name, x, y)
 							},
 							init: function(self, itemMenu, svg) {
 								var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
@@ -269,11 +282,14 @@
 							menus: [{
 								name: '删除',
 								callBack: function(self) {
-									self.destory()
+									delElement(self, self.data.id, self.item_name)
 								}
 							}],
 							data: {
 								name: 'table元素'
+							},
+							before: function(item_name, x, y) {
+								createElement(item_name, x, y)
 							},
 							init: function(self, itemMenu, svg) {
 								var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
@@ -303,11 +319,14 @@
 							menus: [{
 								name: '删除',
 								callBack: function(self) {
-									self.destory()
+									delElement(self, self.data.id, self.item_name)
 								}
 							}],
 							data: {
 								name: 'image元素'
+							},
+							before: function(item_name, x, y) {
+								createElement(item_name, x, y)
 							},
 							init: function(self, itemMenu, svg) {
 								var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
