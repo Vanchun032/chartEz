@@ -60,6 +60,21 @@
 				</div>
 			</form>
 		</div>
+		<div id="newitem_page" hidden="hidden" style="padding:20px 20px">
+			<form class="layui-form" onsubmit="return false">
+				<div class="layui-form-item">
+					<label class="layui-form-label">名称</label>
+					<div class="layui-input-block">
+						<input type="text" id="newitem_name" lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" id="newitem_btn">创建</button>
+					</div>
+				</div>
+			</form>
+		</div>
 	</body>
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="layui/layui.js"></script>
@@ -135,11 +150,62 @@
 							menus: [{
 								name: '删除',
 								callBack: function(self) {
-									self.destory()
+									layer.open({
+										content: '确定删除该记录？',
+										btn: ['确定', '取消'],
+										yes: function(index, layero) {
+											layer.close(index)
+											callAjax("html/delete", {
+												id: self.data.id,
+											}, function(res) {
+												if (res.code == 1) {
+													layer.msg("删除成功")
+													self.destory()
+												}
+											})
+										},
+										btn2: function(index, layero) {}
+									})
 								}
 							}],
 							data: {
 								name: 'html元素'
+							},
+							before: function(item_name, x, y) {
+								//参数回填
+								$('#newitem_name').val('')
+								//配置回调
+								$('#newitem_btn').click(function() {
+									var param = {
+										db_id: dbId,
+										name: $('#newitem_name').val(),
+										config: JSON.stringify({
+											top: y,
+											left: x,
+											width: 100,
+											height: 100
+										})
+									}
+									callAjax(item_name + '/update/returnid', param, function(res) {
+										layer.closeAll()
+										$('#newitem_btn').off('click')
+										if (res.code == 1) {
+											param.id = res.data
+											biu.createItem(item_name, x, y, param)
+										} else {
+											layer.msg('系统异常')
+										}
+									})
+								})
+								//打开页面
+								layer.open({
+									type: 1,
+									title: false,
+									content: $('#newitem_page'),
+									area: '500px',
+									btn: false,
+									shadeClose: true
+								})
 							},
 							init: function(self, itemMenu, svg) {
 								var g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
@@ -315,7 +381,7 @@
 										$('#resize_btn').off('click')
 										if (res.code == 1) {
 											layer.msg('保存成功')
-											 location.reload()
+											location.reload()
 										} else {
 											layer.msg('系统异常')
 										}
@@ -354,7 +420,7 @@
 												layer.msg('系统异常')
 											}
 										})
-									} catch(e) {
+									} catch (e) {
 										layer.msg('字符串解析异常')
 									}
 								})
