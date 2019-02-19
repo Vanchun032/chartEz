@@ -38,12 +38,6 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">配置</label>
-				<div class="layui-input-block">
-					<textarea class="layui-textarea" id="config" name="config"></textarea>
-				</div>
-			</div>
-			<div class="layui-form-item">
 				<label class="layui-form-label">after</label>
 				<div class="layui-input-block">
 					<textarea class="layui-textarea" id="after" name="after"></textarea>
@@ -96,11 +90,6 @@
 				lineNumbers: true,
 				theme: "bespin"
 			})
-			var configEditor = CodeMirror.fromTextArea(document.getElementById("config"), {
-				mode: "text/javascript",
-				lineNumbers: true,
-				theme: "bespin"
-			})
 
 			//获取并设置数据源
 			callAjax('data/listAll', {}, function(res) {
@@ -126,11 +115,6 @@
 						} catch (e) {
 							styleEditor.setValue('{"table": {},"thead": {},"tbody": {},"tr": {},"th": {},"td": {}}')
 						}
-						try {
-							configEditor.setValue(JSON.stringify(JSON.parse(data.config), null, 2))
-						} catch (e) {
-							configEditor.setValue('{}')
-						}
 						afterEditor.setValue(data.after)
 						if (data.call_back) {
 							callBackEditor.setValue(data.call_back)
@@ -141,7 +125,6 @@
 				} else {
 					styleEditor.setValue('{"table": {},"thead": {},"tbody": {},"tr": {},"th": {},"td": {}}')
 					callBackEditor.setValue("")
-					configEditor.setValue('{}')
 				}
 			}
 
@@ -155,16 +138,13 @@
 					return false
 				}
 				params.style = style
-				var config = toJson(configEditor.getValue())
-				if (!config) {
-					return false
-				}
-				params.config = config
 				var url = 'table/update'
 				callAjax(url, params, function(data) {
-					layer.msg("保存成功");
-					layer.closeAll("iframe")
-					parent.location.reload()
+					layer.msg("保存成功")
+					//父页面刷新
+					parent.reloadThis('table', params.id)
+					//关闭本页面
+					parent.layer.close(parent.layer.getFrameIndex(window.name))
 				});
 				return false;
 			})

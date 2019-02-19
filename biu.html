@@ -60,6 +60,27 @@
 				</div>
 			</form>
 		</div>
+		<div id="bg_page" hidden="hidden" style="padding:20px 20px">
+			<form class="layui-form" onsubmit="return false">
+				<div class="layui-form-item">
+					<label class="layui-form-label">背景颜色</label>
+					<div class="layui-input-block">
+						<input type="text" id="bg_color" lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">背景图片</label>
+					<div class="layui-input-block">
+						<input type="text" id="bg_image" lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" id="bg_btn">确定</button>
+					</div>
+				</div>
+			</form>
+		</div>
 		<div id="newitem_page" hidden="hidden" style="padding:20px 20px">
 			<form class="layui-form" onsubmit="return false">
 				<div class="layui-form-item">
@@ -85,11 +106,13 @@
 	<script>
 		layui.use(['layer'], function(layer) {
 			var layer = layer
-			
+
 			//软刷新
 			window.reloadThis = function(type, id) {
 				//单一元素重新拉数据并且更新对象
-				callAjax(type + "/byid", {id: id}, function(res) {
+				callAjax(type + "/byid", {
+					id: id
+				}, function(res) {
 					biu.items.forEach(item => {
 						if (item.item_name == type && item.data.id == res.data.id) {
 							item.data = res.data
@@ -98,7 +121,7 @@
 					})
 				})
 			}
-			
+
 			function delElement(ob, id, type) {
 				layer.open({
 					content: '确定删除该记录？',
@@ -117,7 +140,7 @@
 					btn2: function(index, layero) {}
 				})
 			}
-			
+
 			function createElement(item_name, x, y) {
 				//参数回填
 				$('#newitem_name').val('')
@@ -155,7 +178,7 @@
 					shadeClose: true
 				})
 			}
-			
+
 			var dbId = getQueryString("id")
 			//加载并保存后台数据
 			var db = {}
@@ -195,6 +218,7 @@
 					})
 				})
 			})
+
 			function initPage() {
 				//配置Option
 				var myOption = {
@@ -217,22 +241,23 @@
 							url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/chartEz/html.svg',
 							color: '#DDDDFF',
 							menus: [{
-								name: '删除',
-								callBack: function(self) {
-									delElement(self, self.data.id, self.item_name)
+									name: '删除',
+									callBack: function(self) {
+										delElement(self, self.data.id, self.item_name)
+									}
+								},
+								{
+									name: '内容管理',
+									callBack: function(self) {
+										layer.open({
+											title: "HTML内容管理",
+											type: 2,
+											area: ['80%', '100vh'],
+											content: 'dbhtmlUpdate.html?dbid=' + dbId + '&id=' + self.data.id
+										})
+									}
 								}
-							},
-							{
-								name: '内容管理',
-								callBack: function(self) {
-									layer.open({
-										title: "HTML内容管理",
-										type: 2,
-										area: ['80%', '100vh'],
-										content: 'dbhtmlUpdate.html?dbid=' + dbId + '&id=' + self.data.id
-									})
-								}
-							}],
+							],
 							data: {
 								name: 'html元素'
 							},
@@ -265,11 +290,23 @@
 							url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/chartEz/chart.svg',
 							color: '#C4E1FF',
 							menus: [{
-								name: '删除',
-								callBack: function(self) {
-									delElement(self, self.data.id, self.item_name)
+									name: '删除',
+									callBack: function(self) {
+										delElement(self, self.data.id, self.item_name)
+									}
+								},
+								{
+									name: '内容管理',
+									callBack: function(self) {
+										layer.open({
+											title: "CHART内容管理",
+											type: 2,
+											area: ['80%', '100vh'],
+											content: 'chartUpdate.html?dbid=' + dbId + '&id=' + self.data.id
+										})
+									}
 								}
-							}],
+							],
 							data: {
 								name: 'chart元素'
 							},
@@ -302,11 +339,23 @@
 							url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/chartEz/table.svg',
 							color: '#D9FFFF',
 							menus: [{
-								name: '删除',
-								callBack: function(self) {
-									delElement(self, self.data.id, self.item_name)
+									name: '删除',
+									callBack: function(self) {
+										delElement(self, self.data.id, self.item_name)
+									}
+								},
+								{
+									name: '内容管理',
+									callBack: function(self) {
+										layer.open({
+											title: "TABLE内容管理",
+											type: 2,
+											area: ['80%', '100vh'],
+											content: 'tableUpdate.html?dbid=' + dbId + '&id=' + self.data.id
+										})
+									}
 								}
-							}],
+							],
 							data: {
 								name: 'table元素'
 							},
@@ -339,11 +388,23 @@
 							url: 'http://vanchun.oss-cn-shenzhen.aliyuncs.com/chartEz/image.svg',
 							color: '#D7FFEE',
 							menus: [{
-								name: '删除',
-								callBack: function(self) {
-									delElement(self, self.data.id, self.item_name)
+									name: '删除',
+									callBack: function(self) {
+										delElement(self, self.data.id, self.item_name)
+									}
+								},
+								{
+									name: '内容管理',
+									callBack: function(self) {
+										layer.open({
+											title: "图片内容管理",
+											type: 2,
+											area: ['80%', '100vh'],
+											content: 'imgUpdate.html?dbid=' + dbId + '&id=' + self.data.id
+										})
+									}
 								}
-							}],
+							],
 							data: {
 								name: 'image元素'
 							},
@@ -422,7 +483,9 @@
 										$('#resize_btn').off('click')
 										if (res.code == 1) {
 											layer.msg('保存成功')
-											location.reload()
+											//刷新视觉效果
+											biu.svg().children[0].setAttribute('width', $('#db_width').val())
+											biu.svg().children[0].setAttribute('height', $('#db_height').val())
 										} else {
 											layer.msg('系统异常')
 										}
@@ -477,6 +540,40 @@
 							}
 						},
 						{
+							name: '看板背景',
+							feature: function() {
+								//参数回填
+								$('#bg_color').val(db.config.backgroundColor || '')
+								$('#bg_image').val(db.config.backgroundImg || '')
+								//配置回调
+								$('#bg_btn').click(function() {
+									db.config.backgroundColor = $('#bg_color').val()
+									db.config.backgroundImg = $('#bg_image').val()
+									callAjax('board/update', {
+										id: db.id,
+										config: JSON.stringify(db.config)
+									}, function(res) {
+										layer.closeAll()
+										$('#bg_btn').off('click')
+										if (res.code == 1) {
+											layer.msg('保存成功')
+										} else {
+											layer.msg('系统异常')
+										}
+									})
+								})
+								//打开页面
+								layer.open({
+									type: 1,
+									title: false,
+									content: $('#bg_page'),
+									area: '500px',
+									btn: false,
+									shadeClose: true
+								})
+							}
+						},
+						{
 							name: '保存布局',
 							feature: function() {
 								layer.open({
@@ -510,7 +607,6 @@
 									},
 									btn2: function(index, layero) {}
 								})
-								
 							}
 						}
 					],

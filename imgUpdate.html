@@ -38,12 +38,6 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">配置</label>
-				<div class="layui-input-block">
-					<textarea class="layui-textarea" id="config" name="config"></textarea>
-				</div>
-			</div>
-			<div class="layui-form-item">
 				<label class="layui-form-label">url</label>
 				<div class="layui-input-block">
 					<input placeholder="url" class="layui-input" id="url" name="url">
@@ -73,11 +67,6 @@
 				lineNumbers: true,
 				theme: "bespin"
 			})
-			var configEditor = CodeMirror.fromTextArea(document.getElementById("config"), {
-				mode: "text/javascript",
-				lineNumbers: true,
-				theme: "bespin"
-			})
 
 			function initPage() {
 				if (id) { // 修改
@@ -90,11 +79,6 @@
 							styleEditor.setValue(JSON.stringify(JSON.parse(data.style), null, 2))
 						} catch (e) {
 							styleEditor.setValue('{}')
-						}
-						try {
-							configEditor.setValue(JSON.stringify(JSON.parse(data.config), null, 2))
-						} catch (e) {
-							configEditor.setValue('{}')
 						}
 						form.render()
 					})
@@ -114,11 +98,6 @@
 					return false
 				}
 				params.style = style
-				var config = toJson(configEditor.getValue())
-				if (!config) {
-					return false
-				}
-				params.config = config
 				var url = 'img/update'
 				callAjax(url, params, function(data) {
 					layer.msg("保存成功");

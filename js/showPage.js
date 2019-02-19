@@ -296,13 +296,13 @@ layui.use(['carousel', 'element'], function() {
 				innerDiv.style.height = config.height + 'px'
 				outDiv.appendChild(innerDiv)
 				page.appendChild(outDiv)
-				//设置看板的背景色
-				if (config.backgroundColor) {
-					innerDiv.style.backgroundColor = config.backgroundColor
-				} else if (config.backgroundImg) {
+				//设置看板的背景，背景图片的优先级高于背景颜色
+				if (config.backgroundImg) {
 					innerDiv.style.backgroundImage = 'url(' + config.backgroundImg + ')'
 					innerDiv.style.backgroundRepeat = 'no-repeat'
 					innerDiv.style.backgroundSize = '100% 100%'
+				} else if (config.backgroundColor) {
+					innerDiv.style.backgroundColor = config.backgroundColor
 				}
 			}
 		}
