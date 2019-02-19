@@ -38,12 +38,6 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">配置</label>
-				<div class="layui-input-block">
-					<textarea class="layui-textarea" id="config" name="config"></textarea>
-				</div>
-			</div>
-			<div class="layui-form-item">
 				<label class="layui-form-label">after</label>
 				<div class="layui-input-block">
 					<textarea class="layui-textarea" id="after" name="after"></textarea>
@@ -91,11 +85,6 @@
 				lineNumbers: true,
 				theme: "bespin"
 			})
-			var configEditor = CodeMirror.fromTextArea(document.getElementById("config"), {
-				mode: "text/javascript",
-				lineNumbers: true,
-				theme: "bespin"
-			})
 			var callBackEditor = CodeMirror.fromTextArea(document.getElementById("call_back"), {
 				mode: "text/javascript",
 				lineNumbers: true,
@@ -128,11 +117,6 @@
 							styleEditor.setValue('{}')
 						}
 						try {
-							configEditor.setValue(JSON.stringify(JSON.parse(data.config), null, 2))
-						} catch (e) {
-							configEditor.setValue('{}')
-						}
-						try {
 							editor.setValue(data.after)
 						} catch (e) {
 							editor.setValue('')
@@ -145,7 +129,6 @@
 				} else {
 					callBackEditor.setValue("")
 					styleEditor.setValue('{}')
-					configEditor.setValue('{}')
 				}
 			}
 			
@@ -160,16 +143,12 @@
 					return false
 				}
 				params.style = style
-				var config = toJson(configEditor.getValue())
-				if (!config) {
-					return false
-				}
-				params.config = config
 				callAjax(url, params, function(data) {
-					layer.msg("保存成功");
-					layer.closeAll("iframe");
-					//刷新父页面
-					parent.location.reload();
+					layer.msg("保存成功")
+					//父页面刷新
+					parent.reloadThis('html', params.id)
+					//关闭本页面
+					parent.layer.close(parent.layer.getFrameIndex(window.name))
 				})
 				return false;
 			})

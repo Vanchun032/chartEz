@@ -84,6 +84,20 @@
 	<script src="js/biu.js"></script>
 	<script>
 		layui.use(['layer'], function(layer) {
+			var layer = layer
+			
+			//软刷新
+			window.reloadThis = function(type, id) {
+				//单一元素重新拉数据并且更新对象
+				callAjax(type + "/byid", {id: id}, function(res) {
+					biu.items.forEach(item => {
+						if (item.item_name == type && item.data.id == res.data.id) {
+							item.data = res.data
+							item._resize()
+						}
+					})
+				})
+			}
 			
 			function delElement(ob, id, type) {
 				layer.open({
@@ -110,7 +124,7 @@
 				//配置回调
 				$('#newitem_btn').click(function() {
 					var param = {
-						db_id: dbId,
+						db_id: Number(dbId),
 						name: $('#newitem_name').val(),
 						config: JSON.stringify({
 							top: y,
@@ -142,7 +156,6 @@
 				})
 			}
 			
-			var layer = layer
 			var dbId = getQueryString("id")
 			//加载并保存后台数据
 			var db = {}
@@ -182,8 +195,6 @@
 					})
 				})
 			})
-
-
 			function initPage() {
 				//配置Option
 				var myOption = {
@@ -209,6 +220,17 @@
 								name: '删除',
 								callBack: function(self) {
 									delElement(self, self.data.id, self.item_name)
+								}
+							},
+							{
+								name: '内容管理',
+								callBack: function(self) {
+									layer.open({
+										title: "HTML内容管理",
+										type: 2,
+										area: ['80%', '100vh'],
+										content: 'dbhtmlUpdate.html?dbid=' + dbId + '&id=' + self.data.id
+									})
 								}
 							}],
 							data: {
@@ -457,29 +479,38 @@
 						{
 							name: '保存布局',
 							feature: function() {
-								//调用用户后台接口,可对当前页面的布局内容进行保存
-								var param = []
-								biu.items.forEach(item => {
-									var config = JSON.parse(item.data.config)
-									config.top = item.y
-									config.left = item.x
-									config.width = item.width
-									config.height = item.height
-									param.push({
-										type: item.item_name,
-										id: item.data.id,
-										config: config
-									})
+								layer.open({
+									content: '要保存现在的布局么？',
+									btn: ['确定', '取消'],
+									yes: function(index, layero) {
+										layer.close(index)
+										//调用用户后台接口,可对当前页面的布局内容进行保存
+										var param = []
+										biu.items.forEach(item => {
+											var config = JSON.parse(item.data.config)
+											config.top = item.y
+											config.left = item.x
+											config.width = item.width
+											config.height = item.height
+											param.push({
+												type: item.item_name,
+												id: item.data.id,
+												config: config
+											})
+										})
+										callAjax('update/all', {
+											str: JSON.stringify(param)
+										}, function(res) {
+											if (res.code == 1) {
+												layer.msg('保存成功')
+											} else {
+												layer.msg('保存失败')
+											}
+										})
+									},
+									btn2: function(index, layero) {}
 								})
-								callAjax('update/all', {
-									str: JSON.stringify(param)
-								}, function(res) {
-									if (res.code == 1) {
-										layer.msg('保存成功')
-									} else {
-										layer.msg('保存失败')
-									}
-								})
+								
 							}
 						}
 					],

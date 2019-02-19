@@ -95,10 +95,6 @@
 					html += '<tr>'
 					html += '<td>' + list[x].title + '</td>'
 					html += '<td><button class="layui-btn layui-btn-normal" onclick="biu(\'' + list[x].id + '\')">编辑</button>'
-					html += '<button class="layui-btn layui-btn-normal" onclick="editElement(\'' + list[x].id + '\', \'dbhtml.html\', \'HTML元素列表\')">HTML</button>'
-					html += '<button class="layui-btn layui-btn-normal" onclick="editElement(\'' + list[x].id + '\', \'chart.html\', \'CHART元素列表\')">CHART</button>'
-					html += '<button class="layui-btn layui-btn-normal" onclick="editElement(\'' + list[x].id + '\', \'table.html\', \'TABLE元素列表\')">TABLE</button>'
-					html += '<button class="layui-btn layui-btn-normal" onclick="editElement(\'' + list[x].id + '\', \'img.html\', \'IMG元素列表\')">IMG</button>'
 					html += '<button class="layui-btn layui-btn-normal" onclick="delThis(\'' + list[x].id + '\')">删除</button></td>'
 					html += '</tr>'
 				}
@@ -134,19 +130,6 @@
 						cancel: function() {}
 					});
 				});
-			}
-
-			window.editElement = function(id, url, title) {
-				var index = layui.layer.open({
-					title: title,
-					type: 2,
-					area: ['600px', '100vh'],
-					content: url + "?id=" + id
-				})
-				$(window).resize(function() {
-					layui.layer.full(index);
-				})
-				layui.layer.full(index);
 			}
 			
 			window.biu = function(id) {
